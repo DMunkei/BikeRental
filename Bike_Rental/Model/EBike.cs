@@ -164,6 +164,13 @@ namespace Bike_Rental
         {
             EBike.BikeCounter += 1;
         }
+        public void LockBike()
+        {
+            if(this.Status != true)
+            {
+                this.Status = false;
+            }
+        }
         #endregion
     }
 }

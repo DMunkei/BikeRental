@@ -16,6 +16,7 @@ namespace Bike_Rental
         private bool _status;
         private string _location;
         private double _cost;
+        private static int _bikeCounter;
 
 
         #endregion
@@ -110,12 +111,45 @@ namespace Bike_Rental
                 _cost = value;
             }
         }
+
+        public static int BikeCounter
+        {
+            get
+            {
+                return _bikeCounter;
+            }
+
+            set
+            {
+                _bikeCounter = value;
+            }
+        }
         #endregion
         #region Constructor
-
+        public TourBike(string kindValue, string locationValue)
+        {
+            this.IncrementBikeCount();
+            this.Id = TourBike.BikeCounter;
+            this.Size = 30;
+            this.Kind = kindValue;
+            this.UsedTime = 40;
+            this.Status = true;
+            this.Location = locationValue;
+            this.Cost = 7.5;
+        }
         #endregion
         #region Methods
-
+        public void IncrementBikeCount()
+        {
+            TourBike.BikeCounter += 1;
+        }
+        public void LockBike()
+        {
+            if (this.Status != true)
+            {
+                this.Status = false;
+            }
+        }
         #endregion
 
 

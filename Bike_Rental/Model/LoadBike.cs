@@ -16,7 +16,8 @@ namespace Bike_Rental.Model
         private bool _status;
         private string _location;
         private double _cost;
-        private int _maximumLoad;
+        private double _maximumLoad;
+        private static int _bikeCounter;
 
 
         #endregion
@@ -112,7 +113,7 @@ namespace Bike_Rental.Model
             }
         }
 
-        public int MaximumLoad
+        public double MaximumLoad
         {
             get
             {
@@ -124,12 +125,46 @@ namespace Bike_Rental.Model
                 _maximumLoad = value;
             }
         }
+
+        public static int BikeCounter
+        {
+            get
+            {
+                return _bikeCounter;
+            }
+
+            set
+            {
+                _bikeCounter = value;
+            }
+        }
         #endregion
         #region Constructor
-
+        public LoadBike(string kindValue, string locationValue)
+        {
+            this.IncrementBikeCount();
+            this.Id = LoadBike.BikeCounter;
+            this.Size = 30;
+            this.Kind = kindValue;
+            this.UsedTime = 40;
+            this.Status = true;
+            this.Location = locationValue;
+            this.Cost = 7.5;
+            this.MaximumLoad = 45;
+        }
         #endregion
         #region Methods
-
+        public void IncrementBikeCount()
+        {
+            LoadBike.BikeCounter += 1;
+        }
+        public void LockBike()
+        {
+            if (this.Status != true)
+            {
+                this.Status = false;
+            }
+        }
         #endregion
     }
 }
