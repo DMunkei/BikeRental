@@ -1,4 +1,7 @@
-﻿using System;
+﻿///Author:Dominique Amir Köstler
+///Class:IA116
+///Description: Load bike class
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +16,7 @@ namespace Bike_Rental.Model
         private int _size;
         private string _kind;
         private int _usedTime;
-        private bool _status;
+        private bool _lockStatus;
         private string _location;
         private double _cost;
         private double _maximumLoad;
@@ -74,20 +77,7 @@ namespace Bike_Rental.Model
             }
         }
 
-        public bool Status
-        {
-            get
-            {
-                return _status;
-            }
-
-            set
-            {
-                _status = value;
-            }
-        }
-
-        public string Location
+		public string Location
         {
             get
             {
@@ -138,16 +128,18 @@ namespace Bike_Rental.Model
                 _bikeCounter = value;
             }
         }
-        #endregion
-        #region Constructor
-        public LoadBike(string kindValue, string locationValue)
+
+		public bool LockStatus { get => _lockStatus; set => _lockStatus = value; }
+		#endregion
+		#region Constructor
+		public LoadBike(string kindValue, string locationValue)
         {
             this.IncrementBikeCount();
             this.Id = LoadBike.BikeCounter;
             this.Size = 30;
             this.Kind = kindValue;
             this.UsedTime = 40;
-            this.Status = true;
+            this.LockStatus = true;
             this.Location = locationValue;
             this.Cost = 7.5;
             this.MaximumLoad = 45;
@@ -160,11 +152,13 @@ namespace Bike_Rental.Model
         }
         public void LockBike()
         {
-            if (this.Status != true)
+            if (this.LockStatus != true)
             {
-                this.Status = false;
-            }
-        }
+				View.IO.MyConsoleWriteLine("Bike has been locked.");
+				this.LockStatus = true;
+			}
+			View.IO.MyConsoleWriteLine("Bike already locked.");
+		}
         #endregion
     }
 }

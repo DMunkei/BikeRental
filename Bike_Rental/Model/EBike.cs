@@ -1,6 +1,6 @@
 ﻿///Author:Dominique Amir Köstler
-///Klasse:IA116
-///
+///Class:IA116
+///Description: Electric bike class
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +16,7 @@ namespace Bike_Rental
         private int _size;
         private string _kind;
         private int _usedTime;
-        private bool _status;
+        private bool _lockStatus;
         private string _location;
         private double _cost;
         private double _powerLevel;
@@ -75,16 +75,16 @@ namespace Bike_Rental
             }
         }
 
-        public bool Status
+        public bool LockStatus
         {
             get
             {
-                return _status;
+                return _lockStatus;
             }
 
             set
             {
-                _status = value;
+                _lockStatus = value;
             }
         }
 
@@ -149,7 +149,7 @@ namespace Bike_Rental
             this.Size = 30;
             this.Kind = kindValue;
             this.UsedTime = 40;
-            this.Status = true;
+            this.LockStatus = true;
             this.Location = locationValue;
             this.Cost = 7.5;
             this.PowerLevel = 9001; //OVER NINE THOUSAND!
@@ -166,10 +166,12 @@ namespace Bike_Rental
         }
         public void LockBike()
         {
-            if(this.Status != true)
+            if(this.LockStatus != true)
             {
-                this.Status = false;
+				View.IO.MyConsoleWriteLine("Bike has been locked.");
+                this.LockStatus = true;
             }
+			View.IO.MyConsoleWriteLine("Bike already locked.");
         }
         #endregion
     }
