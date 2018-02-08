@@ -1,4 +1,7 @@
-﻿using System;
+﻿///Author:Dominique Amir Köstler
+///Class:IA116
+///Description: Tour bike class
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,9 +16,10 @@ namespace Bike_Rental
         private int _size;
         private string _kind;
         private int _usedTime;
-        private bool _status;
+        private bool _lockStatus;
         private string _location;
         private double _cost;
+        private static int _bikeCounter;
 
 
         #endregion
@@ -72,19 +76,6 @@ namespace Bike_Rental
             }
         }
 
-        public bool Status
-        {
-            get
-            {
-                return _status;
-            }
-
-            set
-            {
-                _status = value;
-            }
-        }
-
         public string Location
         {
             get
@@ -110,15 +101,48 @@ namespace Bike_Rental
                 _cost = value;
             }
         }
-        #endregion
-        #region Constructor
 
+        public static int BikeCounter
+        {
+            get
+            {
+                return _bikeCounter;
+            }
+
+            set
+            {
+                _bikeCounter = value;
+            }
+        }
+		public bool LockStatus { get => LockStatus; set => LockStatus = value; }
+		#endregion
+		#region Constructor
+		public TourBike(string kindValue, string locationValue)
+        {
+            this.IncrementBikeCount();
+            this.Id = TourBike.BikeCounter;
+            this.Size = 30;
+            this.Kind = kindValue;
+            this.UsedTime = 40;
+            this.LockStatus = true;
+            this.Location = locationValue;
+            this.Cost = 7.5;
+        }
         #endregion
         #region Methods
-
+        public void IncrementBikeCount()
+        {
+            TourBike.BikeCounter += 1;
+        }
+        public void LockBike()
+        {
+            if (this.LockStatus != true)
+            {
+				View.IO.MyConsoleWriteLine("Bike has been locked.");
+				this.LockStatus = true;
+			}
+			View.IO.MyConsoleWriteLine("Bike already locked.");
+		}
         #endregion
-
-
-
     }
 }

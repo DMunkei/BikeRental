@@ -1,11 +1,14 @@
-﻿using System;
+﻿///Author:Dominique Amir Köstler
+///Class:IA116
+///Description: Electric bike class
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bike_Rental.Model
-{
+namespace Bike_Rental
+{ 
     class EBike
     {
         #region Members
@@ -13,12 +16,11 @@ namespace Bike_Rental.Model
         private int _size;
         private string _kind;
         private int _usedTime;
-        private bool _status;
+        private bool _lockStatus;
         private string _location;
         private double _cost;
         private double _powerLevel;
-
-
+        private static int _bikeCounter;
         #endregion
         #region Properties
         public int Id
@@ -73,16 +75,16 @@ namespace Bike_Rental.Model
             }
         }
 
-        public bool Status
+        public bool LockStatus
         {
             get
             {
-                return _status;
+                return _lockStatus;
             }
 
             set
             {
-                _status = value;
+                _lockStatus = value;
             }
         }
 
@@ -124,12 +126,53 @@ namespace Bike_Rental.Model
                 _powerLevel = value;
             }
         }
+
+        public static int BikeCounter
+        {
+            get
+            {
+                return _bikeCounter;
+            }
+
+            set
+            {
+                _bikeCounter = value;
+            }
+        }
+
         #endregion
         #region Constructor
-
+        public EBike(string kindValue,string locationValue)
+        {
+            this.IncrementBikeCount();
+            this.Id = EBike.BikeCounter;
+            this.Size = 30;
+            this.Kind = kindValue;
+            this.UsedTime = 40;
+            this.LockStatus = true;
+            this.Location = locationValue;
+            this.Cost = 7.5;
+            this.PowerLevel = 9001; //OVER NINE THOUSAND!
+        }
         #endregion
         #region Methods
-
+        public void StartCycling()
+        {
+            Console.WriteLine("Jetzt gehts losssssssss!!");
+        }
+        public void IncrementBikeCount()
+        {
+            EBike.BikeCounter += 1;
+        }
+        public void LockBike()
+        {
+            if(this.LockStatus != true)
+            {
+				View.IO.MyConsoleWriteLine("Bike has been locked.");
+                this.LockStatus = true;
+            }
+			View.IO.MyConsoleWriteLine("Bike already locked.");
+        }
         #endregion
     }
 }
