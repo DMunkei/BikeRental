@@ -1,3 +1,18 @@
+///Author:Dominique Amir Köstler
+
+///Class:IA116
+
+///Description: Bike
+
+
+
+
+
+
+
+
+
+
 		#region Members
 
 		#endregion

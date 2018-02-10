@@ -138,10 +138,10 @@ namespace Bike_Rental
         {
             if (this.LockStatus != true)
             {
-				View.IO.MyConsoleWriteLine("Bike has been locked.");
+				IO.MyConsoleWriteLine("Bike has been locked.");
 				this.LockStatus = true;
 			}
-			View.IO.MyConsoleWriteLine("Bike already locked.");
+			IO.MyConsoleWriteLine("Bike already locked.");
 		}
         #endregion
     }

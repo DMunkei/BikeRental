@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bike_Rental.Model
+namespace Bike_Rental
 {
 	class BikeRack
 	{
@@ -44,21 +44,21 @@ namespace Bike_Rental.Model
 		{
 			if(this.RackInUse == false)
 			{
-				View.IO.MyConsoleWriteLine("No bike is currently being stored.");
+				IO.MyConsoleWriteLine("No bike is currently being stored.");
 				return;
 			}
 			this.RackInUse = false;
 			//TODO specify which bike model and bike ID 
-			View.IO.MyConsoleWriteLine("Bike has been released.");
+			IO.MyConsoleWriteLine("Bike has been released.");
 		}
 		private void StoreBike()
 		{
 			if(this.RackInUse == true)
 			{
-				View.IO.MyConsoleWriteLine("Bike rack already in use.");
+				IO.MyConsoleWriteLine("Bike rack already in use.");
 				return;
 			}
-			View.IO.MyConsoleWriteLine("Bike has been stored.");
+			IO.MyConsoleWriteLine("Bike has been stored.");
 			this.RackInUse = false;
 			//TODO: add specific bike type
 		}

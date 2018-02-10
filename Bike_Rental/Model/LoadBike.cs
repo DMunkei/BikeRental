@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bike_Rental.Model
-{
+namespace Bike_Rental
+{ 
     class LoadBike
     {
         #region Members
@@ -154,10 +154,10 @@ namespace Bike_Rental.Model
         {
             if (this.LockStatus != true)
             {
-				View.IO.MyConsoleWriteLine("Bike has been locked.");
+				IO.MyConsoleWriteLine("Bike has been locked.");
 				this.LockStatus = true;
 			}
-			View.IO.MyConsoleWriteLine("Bike already locked.");
+			IO.MyConsoleWriteLine("Bike already locked.");
 		}
         #endregion
     }

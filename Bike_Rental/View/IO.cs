@@ -8,13 +8,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bike_Rental.View
+namespace Bike_Rental
 {
 	static class IO
 	{
 		#region Members
 		private static string _text;
-
 		#endregion
 		#region Properties
 		public static string Text { get => Text; set => Text = value; }		

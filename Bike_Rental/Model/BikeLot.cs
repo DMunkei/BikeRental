@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bike_Rental.Model
+namespace Bike_Rental
 {
 	class BikeLot
 	{
