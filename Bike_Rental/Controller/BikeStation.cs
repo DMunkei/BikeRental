@@ -17,27 +17,88 @@ namespace Bike_Rental
 		private List<BikeRack> _bikeRacks;
 		private bool _stationStatus;
 
+        public int Id
+        {
+            get
+            {
+                return _id;
+            }
 
-		//private IO _io;
-		#endregion
-		#region Properties
-		public int Id { get => _id; set => _id = value; }
-		internal List<BikeRack> BikeRacks { get => _bikeRacks; set => _bikeRacks = value; }
-		public bool StationStatus { get => _stationStatus; set => _stationStatus = value; }
-		public static int StationCounter { get => _stationCounter; set => _stationCounter = value; }
+            set
+            {
+                _id = value;
+            }
+        }
 
-		#endregion
-		#region Constructors
-		public BikeStation()
+        public static int StationCounter
+        {
+            get
+            {
+                return _stationCounter;
+            }
+
+            set
+            {
+                _stationCounter = value;
+            }
+        }
+
+        internal List<BikeRack> BikeRacks
+        {
+            get
+            {
+                return _bikeRacks;
+            }
+
+            set
+            {
+                _bikeRacks = value;
+            }
+        }
+
+        public bool StationStatus
+        {
+            get
+            {
+                return _stationStatus;
+            }
+
+            set
+            {
+                _stationStatus = value;
+            }
+        }
+
+
+        //private IO _io;
+        #endregion
+        #region Properties
+        //public int Id { get => _id; set => _id = value; }
+        //internal List<BikeRack> BikeRacks { get => _bikeRacks; set => _bikeRacks = value; }
+        //public bool StationStatus { get => _stationStatus; set => _stationStatus = value; }
+        //public static int StationCounter { get => _stationCounter; set => _stationCounter = value; }
+
+        #endregion
+        #region Constructors
+        public BikeStation()
 		{
 			BikeStation.IncrementStationID();
 			this.Id = BikeStation.StationCounter;
 			this.BikeRacks = new List<BikeRack>(50);
-			this.StationStatus = true;
+            this.InitializeBikeRacks();
+            this.StationStatus = true;
 		}
-		#endregion
-		#region Methods
-		private void StoreBike()
+        #endregion
+        #region Methods
+
+        private void InitializeBikeRacks()
+        {
+            for (int i = 1; i<= 50; i++)
+            {
+                this.BikeRacks.Add(new BikeRack());
+            }
+        }
+        private void StoreBike()
 		{
 			//Figure out how to store bike into bike rack.
 		}

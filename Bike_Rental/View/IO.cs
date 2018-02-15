@@ -14,14 +14,27 @@ namespace Bike_Rental
 	{
 		#region Members
 		private static string _text;
-		#endregion
-		#region Properties
-		public static string Text { get => Text; set => Text = value; }		
-		#endregion
-		#region Constructors
-		#endregion
-		#region Methods
-		public static void MyConsoleWriteLine(string text)
+
+        public static string Text
+        {
+            get
+            {
+                return _text;
+            }
+
+            set
+            {
+                _text = value;
+            }
+        }
+        #endregion
+        #region Properties
+        //public static string Text { get => Text; set => Text = value; }		
+        #endregion
+        #region Constructors
+        #endregion
+        #region Methods
+        public static void MyConsoleWriteLine(string text)
 		{
 			Console.WriteLine(text);
 		}

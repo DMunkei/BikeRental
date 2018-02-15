@@ -17,17 +17,82 @@ namespace Bike_Rental
 		private bool _rackInUse;
 		private int _bikeID;
 		private bool _requiresMaintenance;
-		#endregion
-		#region Properties
-		public  int BikeRackID { get => _bikeRackID; set => _bikeRackID = value; }
-		public bool RackInUse { get => _rackInUse; set => _rackInUse = value; }
-		public int BikeID { get => _bikeID; set => _bikeID = value; }
-		public bool RequiresMaintenance { get => _requiresMaintenance; set => _requiresMaintenance = value; }
-		public static int RackCount { get => _rackCount; set => _rackCount = value; }
 
-		#endregion
-		#region Constructors
-		public BikeRack()
+        public int BikeRackID
+        {
+            get
+            {
+                return _bikeRackID;
+            }
+
+            set
+            {
+                _bikeRackID = value;
+            }
+        }
+
+        public static int RackCount
+        {
+            get
+            {
+                return _rackCount;
+            }
+
+            set
+            {
+                _rackCount = value;
+            }
+        }
+
+        public bool RackInUse
+        {
+            get
+            {
+                return _rackInUse;
+            }
+
+            set
+            {
+                _rackInUse = value;
+            }
+        }
+
+        public int BikeID
+        {
+            get
+            {
+                return _bikeID;
+            }
+
+            set
+            {
+                _bikeID = value;
+            }
+        }
+
+        public bool RequiresMaintenance
+        {
+            get
+            {
+                return _requiresMaintenance;
+            }
+
+            set
+            {
+                _requiresMaintenance = value;
+            }
+        }
+        #endregion
+        #region Properties
+        //public  int BikeRackID { get => _bikeRackID; set => _bikeRackID = value; }
+        //public bool RackInUse { get => _rackInUse; set => _rackInUse = value; }
+        //public int BikeID { get => _bikeID; set => _bikeID = value; }
+        //public bool RequiresMaintenance { get => _requiresMaintenance; set => _requiresMaintenance = value; }
+        //public static int RackCount { get => _rackCount; set => _rackCount = value; }
+
+        #endregion
+        #region Constructors
+        public BikeRack()
 		{
 			BikeRack.IncrementID();
 			this.BikeRackID = BikeRack.RackCount;

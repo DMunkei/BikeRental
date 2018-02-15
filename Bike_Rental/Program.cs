@@ -17,7 +17,6 @@ namespace Bike_Rental
 			BikeStation station1 = new BikeStation();
 
 
-
             Console.ReadKey();
         }
     }

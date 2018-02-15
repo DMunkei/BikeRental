@@ -114,10 +114,24 @@ namespace Bike_Rental
                 _bikeCounter = value;
             }
         }
-		public bool LockStatus { get => LockStatus; set => LockStatus = value; }
-		#endregion
-		#region Constructor
-		public TourBike(string kindValue, string locationValue)
+
+        public bool LockStatus
+        {
+            get
+            {
+                return _lockStatus;
+            }
+
+            set
+            {
+                _lockStatus = value;
+            }
+        }
+
+        //public bool LockStatus { get => LockStatus; set => LockStatus = value; }
+        #endregion
+        #region Constructor
+        public TourBike(string kindValue, string locationValue)
         {
             this.IncrementBikeCount();
             this.Id = TourBike.BikeCounter;
