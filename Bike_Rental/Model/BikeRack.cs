@@ -17,82 +17,118 @@ namespace Bike_Rental
 		private bool _rackInUse;
 		private int _bikeID;
 		private bool _requiresMaintenance;
+		private EBike _eBike;
+		private LoadBike _loadBike;
+		private TourBike _tourBike;
 
-        public int BikeRackID
-        {
-            get
-            {
-                return _bikeRackID;
-            }
+		#endregion
+		#region Properties
+		//public  int BikeRackID { get => _bikeRackID; set => _bikeRackID = value; }
+		//public bool RackInUse { get => _rackInUse; set => _rackInUse = value; }
+		//public int BikeID { get => _bikeID; set => _bikeID = value; }
+		//public bool RequiresMaintenance { get => _requiresMaintenance; set => _requiresMaintenance = value; }
+		//public static int RackCount { get => _rackCount; set => _rackCount = value; }
+		public int BikeRackID
+		{
+			get
+			{
+				return _bikeRackID;
+			}
 
-            set
-            {
-                _bikeRackID = value;
-            }
-        }
+			set
+			{
+				_bikeRackID = value;
+			}
+		}
 
-        public static int RackCount
-        {
-            get
-            {
-                return _rackCount;
-            }
+		public static int RackCount
+		{
+			get
+			{
+				return _rackCount;
+			}
 
-            set
-            {
-                _rackCount = value;
-            }
-        }
+			set
+			{
+				_rackCount = value;
+			}
+		}
 
-        public bool RackInUse
-        {
-            get
-            {
-                return _rackInUse;
-            }
+		public bool RackInUse
+		{
+			get
+			{
+				return _rackInUse;
+			}
 
-            set
-            {
-                _rackInUse = value;
-            }
-        }
+			set
+			{
+				_rackInUse = value;
+			}
+		}
 
-        public int BikeID
-        {
-            get
-            {
-                return _bikeID;
-            }
+		public int BikeID
+		{
+			get
+			{
+				return _bikeID;
+			}
 
-            set
-            {
-                _bikeID = value;
-            }
-        }
+			set
+			{
+				_bikeID = value;
+			}
+		}
 
-        public bool RequiresMaintenance
-        {
-            get
-            {
-                return _requiresMaintenance;
-            }
+		public bool RequiresMaintenance
+		{
+			get
+			{
+				return _requiresMaintenance;
+			}
 
-            set
-            {
-                _requiresMaintenance = value;
-            }
-        }
-        #endregion
-        #region Properties
-        //public  int BikeRackID { get => _bikeRackID; set => _bikeRackID = value; }
-        //public bool RackInUse { get => _rackInUse; set => _rackInUse = value; }
-        //public int BikeID { get => _bikeID; set => _bikeID = value; }
-        //public bool RequiresMaintenance { get => _requiresMaintenance; set => _requiresMaintenance = value; }
-        //public static int RackCount { get => _rackCount; set => _rackCount = value; }
+			set
+			{
+				_requiresMaintenance = value;
+			}
+		}
 
-        #endregion
-        #region Constructors
-        public BikeRack()
+		public EBike EBike
+		{
+			get
+			{
+				return _eBike;
+			}
+			set
+			{
+				_eBike = value;
+			}
+		}
+		public TourBike TourBike
+		{
+			get
+			{
+				return _tourBike;
+			}
+			set
+			{
+				_tourBike = value;
+			}
+		}
+		public LoadBike LoadBike
+		{
+			get
+			{
+				return _loadBike;
+			}
+			set
+			{
+				_loadBike= value;
+			}
+		}
+		#endregion
+		#region Constructors
+		public BikeRack()
 		{
 			BikeRack.IncrementID();
 			this.BikeRackID = BikeRack.RackCount;
@@ -109,23 +145,34 @@ namespace Bike_Rental
 		{
 			if(this.RackInUse == false)
 			{
-				IO.MyConsoleWriteLine("No bike is currently being stored.");
+				IO.MyConsoleWriteLine("Stellplatz ist schon Leer.");
 				return;
 			}
 			this.RackInUse = false;
-			//TODO specify which bike model and bike ID 
-			IO.MyConsoleWriteLine("Bike has been released.");
+			IO.MyConsoleWriteLine("Fahrrad ausgegeben.");
 		}
-		private void StoreBike()
+		private void StoreBike(int BikeType)
 		{
 			if(this.RackInUse == true)
 			{
-				IO.MyConsoleWriteLine("Bike rack already in use.");
+				IO.MyConsoleWriteLine("Stellplatz besetzt.");
 				return;
 			}
-			IO.MyConsoleWriteLine("Bike has been stored.");
+
+			if (BikeType == 1)
+			{
+				this.EBike = new EBike("awesome", "Kai world");
+			}
+			else if (BikeType == 2)
+			{
+				this.TourBike = new TourBike("tourAwesome", "wot face");
+			}
+			else
+			{
+				this.LoadBike = new LoadBike("awesomeLoad", "Yeaaaaaaaa baby");
+			}
+			IO.MyConsoleWriteLine("Fahrrad wurde entgegen genommen.");
 			this.RackInUse = false;
-			//TODO: add specific bike type
 		}
 		#endregion
 	}

@@ -46,6 +46,16 @@ namespace Bike_Rental
 		{
 			Console.ReadLine().ToLower();
 		}
+		public static void Splash()
+		{
+			MyConsoleWriteLine("Autor: Dominique Köstler\nFahrradstation Simulation");
+		}
+		public static void Menu()
+		{
+			MyConsoleWriteLine("1.Fahrrad Ausleihen.");
+			MyConsoleWriteLine("2.Fahrrad Zurückgeben.");
+			MyConsoleWriteLine("3.Freie plätze anzeigen.");
+		}
 		#endregion
 	}
 }
