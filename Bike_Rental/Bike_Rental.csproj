@@ -48,8 +48,10 @@
     <Compile Include="Model\BikeStation.cs" />
     <Compile Include="Model\BikeLot.cs" />
     <Compile Include="Model\BikeRack.cs" />
+    <Compile Include="Model\Client.cs" />
     <Compile Include="Model\EBike.cs" />
     <Compile Include="Model\LoadBike.cs" />
+    <Compile Include="Model\Register.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\TourBike.cs" />

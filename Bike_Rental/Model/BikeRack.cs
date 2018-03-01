@@ -20,7 +20,6 @@ namespace Bike_Rental
 		private EBike _eBike;
 		private LoadBike _loadBike;
 		private TourBike _tourBike;
-
 		#endregion
 		#region Properties
 		//public  int BikeRackID { get => _bikeRackID; set => _bikeRackID = value; }

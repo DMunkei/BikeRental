@@ -13,8 +13,8 @@ namespace Bike_Rental
     {
         #region Members
         private int _id;
-        private int _size;
-        private string _kind;
+        //private int _size; Client doesnt want these anymore
+        //private string _kind;
         private int _usedTime;
         private bool _lockStatus;
         private string _location;
@@ -38,31 +38,31 @@ namespace Bike_Rental
             }
         }
 
-        public int Size
-        {
-            get
-            {
-                return _size;
-            }
+        //public int Size
+        //{
+        //    get
+        //    {
+        //        return _size;
+        //    }
 
-            set
-            {
-                _size = value;
-            }
-        }
+        //    set
+        //    {
+        //        _size = value;
+        //    }
+        //}
 
-        public string Kind
-        {
-            get
-            {
-                return _kind;
-            }
+        //public string Kind
+        //{
+        //    get
+        //    {
+        //        return _kind;
+        //    }
 
-            set
-            {
-                _kind = value;
-            }
-        }
+        //    set
+        //    {
+        //        _kind = value;
+        //    }
+        //}
 
         public int UsedTime
         {

@@ -42,9 +42,9 @@ namespace Bike_Rental
 		{
 			Console.Write(text);
 		}
-		public static void MyConsoleReadLine()
+		public static string MyConsoleReadLine()
 		{
-			Console.ReadLine().ToLower();
+			return Console.ReadLine().ToLower();
 		}
 		public static void Splash()
 		{

@@ -10,12 +10,15 @@ namespace Bike_Rental
     {
         static void Main(string[] args)
         {
-			//EBike Ebike1 = new EBike("waddup", "Bonn");
-			//EBike Ebike2 = new EBike("waddup1", "Konn");
-			//EBike Ebike3 = new EBike("waddup2", "Lonn");
+            //EBike Ebike1 = new EBike("waddup", "Bonn");
+            //EBike Ebike2 = new EBike("waddup1", "Konn");
+            //EBike Ebike3 = new EBike("waddup2", "Lonn");
 
-			BikeStation station1 = new BikeStation();
+            //BikeStation station1 = new BikeStation();
 
+            Controller cntrl1 = new Controller();
+
+            cntrl1.Run();
 
             Console.ReadKey();
         }

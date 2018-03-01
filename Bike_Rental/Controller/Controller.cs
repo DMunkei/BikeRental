@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bike_Rental.Controller
+namespace Bike_Rental
 {
 	class Controller
 	{
@@ -36,9 +36,19 @@ namespace Bike_Rental.Controller
 		}
 		#endregion
 		#region Methods
-		private void Run()
+		public void Run()
 		{
+            bool exit = false;
+            IO.Splash();
+            while (exit != true)
+            {
+                IO.Menu();
+                string userInput = IO.MyConsoleReadLine();
 
+
+
+
+            }
 		}
 		#endregion
 	}
