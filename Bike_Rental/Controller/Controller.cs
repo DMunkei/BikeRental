@@ -15,6 +15,7 @@ namespace Bike_Rental
 	{
 		#region Members
 		private BikeStation _bikeStation;
+		private IO _myIO;
 		#endregion
 		#region Properties
 		public BikeStation BikeStation
@@ -28,6 +29,8 @@ namespace Bike_Rental
 				_bikeStation = value;
 			}
 		}
+
+		internal IO MyIO { get => _myIO; set => _myIO = value; }
 		#endregion
 		#region Constructors
 		public Controller()
@@ -39,14 +42,18 @@ namespace Bike_Rental
 		public void Run()
 		{
             bool exit = false;
-            IO.Splash();
+            MyIO.Splash();
             while (exit != true)
             {
-                IO.Menu();
-                string userInput = IO.MyConsoleReadLine();
+				MyIO.Authorization();
+				string userInput = MyIO.MyConsoleReadLine();
+				while(userInput != "1" || userInput != "2")
+				{
+					MyIO.WrongInput();
+				}
 
-
-
+                MyIO.Menu();
+                string userInput2 = MyIO.MyConsoleReadLine();
 
             }
 		}

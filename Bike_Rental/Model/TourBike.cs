@@ -138,7 +138,7 @@ namespace Bike_Rental
             this.Size = 30;
             this.Kind = kindValue;
             this.UsedTime = 40;
-            this.LockStatus = true;
+            this.LockStatus = false;
             this.Location = locationValue;
             this.Cost = 7.5;
         }
@@ -148,14 +148,17 @@ namespace Bike_Rental
         {
             TourBike.BikeCounter += 1;
         }
-        public void LockBike()
+        public bool LockBike()
         {
-            if (this.LockStatus != true)
+            if (this.LockStatus == false)
             {
-				IO.MyConsoleWriteLine("Bike has been locked.");
 				this.LockStatus = true;
+				return true;
 			}
-			IO.MyConsoleWriteLine("Bike already locked.");
+			else
+			{
+				return false;
+			}
 		}
         #endregion
     }

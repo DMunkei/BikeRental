@@ -17,9 +17,7 @@ namespace Bike_Rental
 		private bool _rackInUse;
 		private int _bikeID;
 		private bool _requiresMaintenance;
-		private EBike _eBike;
-		private LoadBike _loadBike;
-		private TourBike _tourBike;
+		
 		#endregion
 		#region Properties
 		//public  int BikeRackID { get => _bikeRackID; set => _bikeRackID = value; }
@@ -91,40 +89,6 @@ namespace Bike_Rental
 				_requiresMaintenance = value;
 			}
 		}
-
-		public EBike EBike
-		{
-			get
-			{
-				return _eBike;
-			}
-			set
-			{
-				_eBike = value;
-			}
-		}
-		public TourBike TourBike
-		{
-			get
-			{
-				return _tourBike;
-			}
-			set
-			{
-				_tourBike = value;
-			}
-		}
-		public LoadBike LoadBike
-		{
-			get
-			{
-				return _loadBike;
-			}
-			set
-			{
-				_loadBike= value;
-			}
-		}
 		#endregion
 		#region Constructors
 		public BikeRack()
@@ -140,38 +104,39 @@ namespace Bike_Rental
 		{
 			BikeRack.RackCount++;
 		}
-		private void ReleaseBike()
+		public bool ReleaseBike()
 		{
-			if(this.RackInUse == false)
-			{
-				IO.MyConsoleWriteLine("Stellplatz ist schon Leer.");
-				return;
-			}
-			this.RackInUse = false;
-			IO.MyConsoleWriteLine("Fahrrad ausgegeben.");
-		}
-		private void StoreBike(int BikeType)
-		{
-			if(this.RackInUse == true)
-			{
-				IO.MyConsoleWriteLine("Stellplatz besetzt.");
-				return;
-			}
+			//Bike Rack broken exit
+			if (!this.RequiresMaintenance) return false;
 
-			if (BikeType == 1)
+			if (this.RackInUse == false)
 			{
-				this.EBike = new EBike("awesome", "Kai world");
-			}
-			else if (BikeType == 2)
-			{
-				this.TourBike = new TourBike("tourAwesome", "wot face");
+				//IO.MyConsoleWriteLine("Stellplatz ist schon Leer.");
+				return false;
 			}
 			else
 			{
-				this.LoadBike = new LoadBike("awesomeLoad", "Yeaaaaaaaa baby");
+				this.RackInUse = false;
+				return true;
 			}
-			IO.MyConsoleWriteLine("Fahrrad wurde entgegen genommen.");
-			this.RackInUse = false;
+			//IO.MyConsoleWriteLine("Fahrrad ausgegeben.");
+		}
+		public bool StoreBike(int BikeType)
+		{
+			//Bike Rack broken exit
+			if (!this.RequiresMaintenance) return false;
+
+			if (this.RackInUse == true)
+			{
+				//IO.MyConsoleWriteLine("Stellplatz besetzt.");
+				return false;
+			}
+			else
+			{
+				this.BikeID = BikeType;
+				return true;
+			}
+	
 		}
 		#endregion
 	}

@@ -21,8 +21,6 @@ namespace Bike_Rental
         private double _cost;
         private double _maximumLoad;
         private static int _bikeCounter;
-
-
         #endregion
         #region Properties
         public int Id
@@ -145,14 +143,12 @@ namespace Bike_Rental
         //public bool LockStatus { get => _lockStatus; set => _lockStatus = value; }
         #endregion
         #region Constructor
-        public LoadBike(string kindValue, string locationValue)
+        public LoadBike(string locationValue)
         {
             this.IncrementBikeCount();
-            this.Id = LoadBike.BikeCounter;
-            this.Size = 30;
-            this.Kind = kindValue;
+            this.Id = LoadBike.BikeCounter;        
             this.UsedTime = 40;
-            this.LockStatus = true;
+            this.LockStatus = false;
             this.Location = locationValue;
             this.Cost = 7.5;
             this.MaximumLoad = 45;
@@ -161,16 +157,19 @@ namespace Bike_Rental
         #region Methods
         public void IncrementBikeCount()
         {
-            LoadBike.BikeCounter += 1;
+            LoadBike.BikeCounter ++;
         }
-        public void LockBike()
+        public bool LockBike()
         {
-            if (this.LockStatus != true)
-            {
-				IO.MyConsoleWriteLine("Bike has been locked.");
+			if (!this.LockStatus == false)
+			{
 				this.LockStatus = true;
+				return true;
 			}
-			IO.MyConsoleWriteLine("Bike already locked.");
+			else
+			{
+				return false;
+			}
 		}
         #endregion
     }

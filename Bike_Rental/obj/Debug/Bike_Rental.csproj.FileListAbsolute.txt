@@ -24,3 +24,10 @@ Z:\Year2\BikeRental\Bike_Rental\obj\Debug\Bike_Rental.pdb
 Z:\Year2\BikeRental\Bike_Rental\bin\Debug\Bike_Rental.exe
 Z:\Year2\BikeRental\Bike_Rental\bin\Debug\Bike_Rental.pdb
 Z:\Year2\BikeRental\Bike_Rental\obj\Debug\Bike_Rental.csprojResolveAssemblyReference.cache
+D:\Projects\BikeRental\Bike_Rental\obj\Debug\Bike_Rental.csprojResolveAssemblyReference.cache
+D:\Projects\BikeRental\Bike_Rental\obj\Debug\Bike_Rental.csproj.CoreCompileInputs.cache
+D:\Projects\BikeRental\Bike_Rental\obj\Debug\Bike_Rental.exe
+D:\Projects\BikeRental\Bike_Rental\obj\Debug\Bike_Rental.pdb
+D:\Projects\BikeRental\Bike_Rental\bin\Debug\Bike_Rental.exe.config
+D:\Projects\BikeRental\Bike_Rental\bin\Debug\Bike_Rental.exe
+D:\Projects\BikeRental\Bike_Rental\bin\Debug\Bike_Rental.pdb

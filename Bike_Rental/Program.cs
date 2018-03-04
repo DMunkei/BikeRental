@@ -18,7 +18,11 @@ namespace Bike_Rental
 
             Controller cntrl1 = new Controller();
 
-            cntrl1.Run();
+			//cntrl1.Run();
+
+			cntrl1.BikeStation.StoreBike(1);
+
+
 
             Console.ReadKey();
         }

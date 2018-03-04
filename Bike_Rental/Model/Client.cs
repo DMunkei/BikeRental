@@ -1,6 +1,6 @@
 ﻿///Author:Dominique Amir 
-///Class:
-///Description: Bike
+///Class:Client
+///Description: Client consisting of a Sur-/Family Name
 
 
 using System;
@@ -16,10 +16,10 @@ namespace Bike_Rental.Model
         #region Members
         private string _surName;
         private string _familyName;
+		private bool _isRegistered = false;
         private static int _clientCounter;
         private int _clientID;
 
-        #endregion
         #region Properties
         public string SurName
         {
@@ -73,9 +73,11 @@ namespace Bike_Rental.Model
             }
         }
 
-        #endregion
-        #region Constructors
-        public Client(string name,string famName)
+		public bool IsRegistered { get => _isRegistered; set => _isRegistered = value; }
+
+		#endregion
+		#region Constructors
+		public Client(string name,string famName)
         {
             Client.IncrementClientID();
             this.ClientID = Client.ClientCounter;
@@ -88,6 +90,15 @@ namespace Bike_Rental.Model
         {
             Client.ClientCounter++;
         }
+		public void ClientData()
+		{
+			//TODO think of a way to write the client's information without having to put a view reference inside this class.
+		}
+		//Use this when a Client passes registration process
+		public void SuccesfulRegistration()
+		{ 
+			this.IsRegistered = true;
+		}
         #endregion
     }
 }

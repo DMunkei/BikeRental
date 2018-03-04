@@ -16,6 +16,7 @@ namespace Bike_Rental
 		private static int _stationCounter;
 		private List<BikeRack> _bikeRacks;
 		private bool _stationStatus;
+		private IO _myIO;
 
 		//private IO _io;
 		#endregion
@@ -76,6 +77,8 @@ namespace Bike_Rental
 			}
 		}
 
+		internal IO MyIO { get => _myIO; set => _myIO = value; }
+
 
 		#endregion
 		#region Constructors
@@ -86,6 +89,7 @@ namespace Bike_Rental
 			this.BikeRacks = new List<BikeRack>(50);
             this.InitializeBikeRacks();
             this.StationStatus = true;
+			this.MyIO = new IO();
 		}
         #endregion
         #region Methods
@@ -97,20 +101,30 @@ namespace Bike_Rental
                 this.BikeRacks.Add(new BikeRack());
             }
         }
-        private void StoreBike()
+        public void StoreBike(int BikeType)
 		{
 			//Figure out how to store bike into bike rack.
+			for (int i = 0; i < BikeRacks.Count; i++)
+			{
+				if(BikeRacks[i].BikeID == 0)
+				{
+					BikeRacks[i].BikeID = BikeType;
+					BikeRacks[i].RackInUse = true;
+					break;
+				}
+			}
 		}
-		private void ActivateStation()
+
+		public void ActivateStation()
 		{
 			this.StationStatus = true;
 		}
-		private void DeactivateStation()
+		public void DeactivateStation()
 		{
 			this.StationStatus = false;
 		}
 			
-		private void GetInventory()
+		public void GetInventory()
 		{
 			//TODO: Don't know what to add in here.
 		}
