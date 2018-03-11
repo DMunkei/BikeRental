@@ -15,6 +15,8 @@ namespace Bike_Rental
 		#region Members
 		private string _text;
 
+		#endregion
+		#region Properties
 		public string Text
 		{
 			get
@@ -28,12 +30,13 @@ namespace Bike_Rental
 			}
 		}
 		#endregion
-		#region Properties
-		//public string Text { get => Text; set => Text = value; }		
-		#endregion
 		#region Constructors
 		#endregion
 		#region Methods
+		public void ClearScreen()
+		{
+			Console.Clear();
+		}
 		public void MyConsoleWriteLine(string text)
 		{
 			Console.WriteLine(text);
@@ -43,6 +46,10 @@ namespace Bike_Rental
 			Console.Write(text);
 		}
 		public string MyConsoleReadLine()
+		{
+			return Console.ReadLine();
+		}
+		public string MyConsoleReadLineToLower()
 		{
 			return Console.ReadLine().ToLower();
 		}
@@ -68,10 +75,35 @@ namespace Bike_Rental
 			MyConsoleWriteLine("1.Fahrrad Ausleihen.");
 			MyConsoleWriteLine("2.Fahrrad Zurückgeben.");
 			MyConsoleWriteLine("3.Freie plätze anzeigen.");
+			MyConsoleWriteLine("4.Beenden.");
 		}
 		public void WrongInput()
 		{
 			MyConsoleWriteLine("Sie haben was falsch eingegeben.");
+		}
+		public void UsernameExists()
+		{
+			MyConsoleWriteLine("Der Username ist nicht verfügbar. Versuchen Sie ein anderen Username.");
+		}
+		public void PasswordDenied()
+		{
+			MyConsoleWriteLine("Das Passwort muss mindestens länger als 4 Zeichen sein. Bitte geben Sie ein längeres Passwort ein.");
+		}
+		public void InputUsername()
+		{
+			MyConsoleWriteLine("Bitte geben Sie ein Username ein.");
+		}
+		public void InputPassword()
+		{
+			MyConsoleWriteLine("Geben Sie bitten ein Passwort ein dass mindestens 4 Zeichen lang ist.");
+		}
+		public void Greetings(string currentUser)
+		{
+			MyConsoleWriteLine($"Guten Tag {currentUser}");
+		}
+		public void TryAgain()
+		{
+			MyConsoleWriteLine("Geben Sie bitte J ein wenn Sie nochmal ein Username eingeben möchten. Geben Sie N um abzubrechen.");
 		}
 		#endregion
 	}

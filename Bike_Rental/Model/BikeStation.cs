@@ -17,14 +17,9 @@ namespace Bike_Rental
 		private List<BikeRack> _bikeRacks;
 		private bool _stationStatus;
 		private IO _myIO;
-
-		//private IO _io;
 		#endregion
 		#region Properties
-		//public int Id { get => _id; set => _id = value; }
-		//internal List<BikeRack> BikeRacks { get => _bikeRacks; set => _bikeRacks = value; }
-		//public bool StationStatus { get => _stationStatus; set => _stationStatus = value; }
-		//public static int StationCounter { get => _stationCounter; set => _stationCounter = value; }
+
 		public int Id
 		{
 			get
@@ -77,9 +72,18 @@ namespace Bike_Rental
 			}
 		}
 
-		internal IO MyIO { get => _myIO; set => _myIO = value; }
+		internal IO MyIO
+		{
+			get
+			{
+				return MyIO;
+			}
 
-
+			set
+			{
+				MyIO = value;
+			}
+		}
 		#endregion
 		#region Constructors
 		public BikeStation()

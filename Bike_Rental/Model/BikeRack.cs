@@ -17,14 +17,9 @@ namespace Bike_Rental
 		private bool _rackInUse;
 		private int _bikeID;
 		private bool _requiresMaintenance;
-		
+		private Bike _occupyingBike;
 		#endregion
 		#region Properties
-		//public  int BikeRackID { get => _bikeRackID; set => _bikeRackID = value; }
-		//public bool RackInUse { get => _rackInUse; set => _rackInUse = value; }
-		//public int BikeID { get => _bikeID; set => _bikeID = value; }
-		//public bool RequiresMaintenance { get => _requiresMaintenance; set => _requiresMaintenance = value; }
-		//public static int RackCount { get => _rackCount; set => _rackCount = value; }
 		public int BikeRackID
 		{
 			get
@@ -37,7 +32,6 @@ namespace Bike_Rental
 				_bikeRackID = value;
 			}
 		}
-
 		public static int RackCount
 		{
 			get
@@ -50,7 +44,6 @@ namespace Bike_Rental
 				_rackCount = value;
 			}
 		}
-
 		public bool RackInUse
 		{
 			get
@@ -63,7 +56,6 @@ namespace Bike_Rental
 				_rackInUse = value;
 			}
 		}
-
 		public int BikeID
 		{
 			get
@@ -76,7 +68,6 @@ namespace Bike_Rental
 				_bikeID = value;
 			}
 		}
-
 		public bool RequiresMaintenance
 		{
 			get
@@ -87,6 +78,18 @@ namespace Bike_Rental
 			set
 			{
 				_requiresMaintenance = value;
+			}
+		}
+		internal Bike OccupyingBike
+		{
+			get
+			{
+				return _occupyingBike;
+			}
+
+			set
+			{
+				_occupyingBike = value;
 			}
 		}
 		#endregion
@@ -121,7 +124,7 @@ namespace Bike_Rental
 			}
 			//IO.MyConsoleWriteLine("Fahrrad ausgegeben.");
 		}
-		public bool StoreBike(int BikeType)
+		public bool StoreBike(Bike BikeType)
 		{
 			//Bike Rack broken exit
 			if (!this.RequiresMaintenance) return false;
@@ -133,7 +136,18 @@ namespace Bike_Rental
 			}
 			else
 			{
-				this.BikeID = BikeType;
+				if(BikeType is EBike)
+				{
+					this.OccupyingBike = new EBike();					
+				}
+				else if(BikeType is TourBike)
+				{
+					this.OccupyingBike = new TourBike();
+				}
+				else if(BikeType is LoadBike)
+				{
+					this.OccupyingBike = new LoadBike();
+				}
 				return true;
 			}
 	

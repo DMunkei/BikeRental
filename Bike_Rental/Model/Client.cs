@@ -1,4 +1,4 @@
-﻿///Author:Dominique Amir 
+﻿	///Author:Dominique Amir 
 ///Class:Client
 ///Description: Client consisting of a Sur-/Family Name
 
@@ -11,43 +11,19 @@ using System.Threading.Tasks;
 
 namespace Bike_Rental.Model
 {
-    class Client
+    class Client:Person
     {
         #region Members
-        private string _surName;
-        private string _familyName;
 		private bool _isRegistered = false;
+		private string _userName;
+		private string _password;
         private static int _clientCounter;
         private int _clientID;
+		#endregion
+		#region Properties
 
-        #region Properties
-        public string SurName
-        {
-            get
-            {
-                return _surName;
-            }
 
-            set
-            {
-                _surName = value;
-            }
-        }
-
-        public string FamilyName
-        {
-            get
-            {
-                return _familyName;
-            }
-
-            set
-            {
-                _familyName = value;
-            }
-        }
-
-        public static int ClientCounter
+		public static int ClientCounter
         {
             get
             {
@@ -59,7 +35,6 @@ namespace Bike_Rental.Model
                 _clientCounter = value;
             }
         }
-
         public int ClientID
         {
             get
@@ -72,8 +47,46 @@ namespace Bike_Rental.Model
                 _clientID = value;
             }
         }
+		public bool IsRegistered
+		{
+			get
+			{
+				return _isRegistered;
+			}
 
-		public bool IsRegistered { get => _isRegistered; set => _isRegistered = value; }
+			set
+			{
+				_isRegistered = value;
+			}
+		}
+
+		public string UserName
+		{
+			get
+			{
+				return _userName;
+			}
+
+			set
+			{
+				_userName = value;
+			}
+		}
+
+		public string Password
+		{
+			get
+			{
+				return _password;
+			}
+
+			set
+			{
+				_password = value;
+			}
+		}
+
+
 
 		#endregion
 		#region Constructors
@@ -81,8 +94,8 @@ namespace Bike_Rental.Model
         {
             Client.IncrementClientID();
             this.ClientID = Client.ClientCounter;
-            this.SurName = name;
-            this.FamilyName = famName;
+            //this.SurName = name;
+            //this.FamilyName = famName;
         }
         #endregion
         #region Methods

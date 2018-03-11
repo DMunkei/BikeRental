@@ -55,15 +55,15 @@ namespace Bike_Rental
         }
         #endregion
         #region Constructor
-        public EBike(string kindValue,string locationValue)
+        public EBike()
         {
             this.IncrementBikeCount();
             this.Id = EBike.BikeCounter;
             this.Size = 30;
-            this.Kind = kindValue;
+            this.Kind = "Model X";
             this.UsedTime = 40;
             this.LockStatus = false;
-            this.Location = locationValue;
+            this.Location = "Mars";
             this.Cost = 7.5;
             this.PowerLevel = 9001; //OVER NINE THOUSAND!
         }

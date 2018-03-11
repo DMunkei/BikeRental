@@ -1,7 +1,5 @@
 ﻿///Author:Dominique Amir Köstler
-
 ///Class:IA116
-
 ///Description: Bike
 
 using System;
@@ -110,6 +108,10 @@ namespace Bike_Rental
 		}
 		#endregion
 		#region Methods
+		public void IncrementBikeCount()
+		{
+			Bike.BikeCounter++;
+		}
 		public bool LockBike()
 		{
 			if (!this.LockStatus == false)

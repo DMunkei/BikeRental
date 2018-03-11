@@ -9,99 +9,12 @@ using System.Threading.Tasks;
 
 namespace Bike_Rental
 {
-    class TourBike
+    class TourBike:Bike
     {
         #region Members
-        private int _id;
-        private int _size;
-        private string _kind;
-        private int _usedTime;
-        private bool _lockStatus;
-        private string _location;
-        private double _cost;
         private static int _bikeCounter;
-
-
-        #endregion
-        #region Properties
-        public int Id
-        {
-            get
-            {
-                return _id;
-            }
-
-            set
-            {
-                _id = value;
-            }
-        }
-
-        public int Size
-        {
-            get
-            {
-                return _size;
-            }
-
-            set
-            {
-                _size = value;
-            }
-        }
-
-        public string Kind
-        {
-            get
-            {
-                return _kind;
-            }
-
-            set
-            {
-                _kind = value;
-            }
-        }
-
-        public int UsedTime
-        {
-            get
-            {
-                return _usedTime;
-            }
-
-            set
-            {
-                _usedTime = value;
-            }
-        }
-
-        public string Location
-        {
-            get
-            {
-                return _location;
-            }
-
-            set
-            {
-                _location = value;
-            }
-        }
-
-        public double Cost
-        {
-            get
-            {
-                return _cost;
-            }
-
-            set
-            {
-                _cost = value;
-            }
-        }
-
+		#endregion
+		#region Properties
         public static int BikeCounter
         {
             get
@@ -114,52 +27,24 @@ namespace Bike_Rental
                 _bikeCounter = value;
             }
         }
-
-        public bool LockStatus
-        {
-            get
-            {
-                return _lockStatus;
-            }
-
-            set
-            {
-                _lockStatus = value;
-            }
-        }
-
-        //public bool LockStatus { get => LockStatus; set => LockStatus = value; }
         #endregion
         #region Constructor
-        public TourBike(string kindValue, string locationValue)
+        public TourBike()
         {
             this.IncrementBikeCount();
             this.Id = TourBike.BikeCounter;
             this.Size = 30;
-            this.Kind = kindValue;
+            this.Kind = "Model S";
             this.UsedTime = 40;
             this.LockStatus = false;
-            this.Location = locationValue;
             this.Cost = 7.5;
         }
         #endregion
         #region Methods
         public void IncrementBikeCount()
         {
-            TourBike.BikeCounter += 1;
+            TourBike.BikeCounter++;
         }
-        public bool LockBike()
-        {
-            if (this.LockStatus == false)
-            {
-				this.LockStatus = true;
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
         #endregion
     }
 }
