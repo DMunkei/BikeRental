@@ -9,85 +9,14 @@ using System.Threading.Tasks;
 
 namespace Bike_Rental
 { 
-    class EBike
+    class EBike : Bike
     {
         #region Members
-        private int _id;
-        private int _size;
-        private string _kind;
-        private int _usedTime;
-        private bool _lockStatus;
         private string _location;
-        private double _cost;
         private double _powerLevel;
-        private static int _bikeCounter;
+        private static int _eBikeCounter;
         #endregion
         #region Properties
-        public int Id
-        {
-            get
-            {
-                return _id;
-            }
-
-            set
-            {
-                _id = value;
-            }
-        }
-
-        public int Size
-        {
-            get
-            {
-                return _size;
-            }
-
-            set
-            {
-                _size = value;
-            }
-        }
-
-        public string Kind
-        {
-            get
-            {
-                return _kind;
-            }
-
-            set
-            {
-                _kind = value;
-            }
-        }
-
-        public int UsedTime
-        {
-            get
-            {
-                return _usedTime;
-            }
-
-            set
-            {
-                _usedTime = value;
-            }
-        }
-
-        public bool LockStatus
-        {
-            get
-            {
-                return _lockStatus;
-            }
-
-            set
-            {
-                _lockStatus = value;
-            }
-        }
-
         public string Location
         {
             get
@@ -100,20 +29,6 @@ namespace Bike_Rental
                 _location = value;
             }
         }
-
-        public double Cost
-        {
-            get
-            {
-                return _cost;
-            }
-
-            set
-            {
-                _cost = value;
-            }
-        }
-
         public double PowerLevel
         {
             get
@@ -126,20 +41,18 @@ namespace Bike_Rental
                 _powerLevel = value;
             }
         }
-
-        public static int BikeCounter
+        public static int EBikeCounter
         {
             get
             {
-                return _bikeCounter;
+                return _eBikeCounter;
             }
 
             set
             {
-                _bikeCounter = value;
+                _eBikeCounter = value;
             }
         }
-
         #endregion
         #region Constructor
         public EBike(string kindValue,string locationValue)
@@ -156,26 +69,11 @@ namespace Bike_Rental
         }
         #endregion
         #region Methods
-        public void StartCycling()
-        {
-            Console.WriteLine("Jetzt gehts losssssssss!!");
-        }
         public void IncrementBikeCount()
         {
             EBike.BikeCounter += 1;
         }
-		public bool LockBike()
-		{
-			if (!this.LockStatus == false)
-			{
-				this.LockStatus = true;
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
+		
 		#endregion
 	}
 }

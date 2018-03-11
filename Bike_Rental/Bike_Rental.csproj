@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\Controller.cs" />
+    <Compile Include="Model\Bike.cs" />
     <Compile Include="Model\BikeStation.cs" />
     <Compile Include="Model\BikeLot.cs" />
     <Compile Include="Model\BikeRack.cs" />
