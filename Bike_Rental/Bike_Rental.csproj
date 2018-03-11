@@ -74,6 +74,7 @@
     <Compile Include="Model\Client.cs" />
     <Compile Include="Model\EBike.cs" />
     <Compile Include="Model\LoadBike.cs" />
+    <Compile Include="Model\Mechanic.cs" />
     <Compile Include="Model\Person.cs" />
     <Compile Include="Model\Register.cs" />
     <Compile Include="main.cs" />

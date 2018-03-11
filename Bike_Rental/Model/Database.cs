@@ -46,13 +46,13 @@ namespace Bike_Rental
 			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
 			command.ExecuteNonQuery();
 			this.DbConnection.Close();
-
 		}
 		public void InsertIntoClientTable(string username,string password)
 		{
 			string query = String.Format("INSERT INTO CLIENT (username, password) VALUES('{0}','{1}')",username,password);
 			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
 			command.ExecuteNonQuery();
+			this.DbConnection.Close();
 		}
 		public bool usernameExists(string username)
 		{
@@ -63,9 +63,11 @@ namespace Bike_Rental
 			{
 				if(username == (string)reader["username"])
 				{
+					this.DbConnection.Close();
 					return true;
 				}
 			}
+			this.DbConnection.Close();
 			return false;
 		}
 		public void DropTable(string tableName)
