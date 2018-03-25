@@ -21,8 +21,6 @@ namespace Bike_Rental
         private int _clientID;
 		#endregion
 		#region Properties
-
-
 		public static int ClientCounter
         {
             get

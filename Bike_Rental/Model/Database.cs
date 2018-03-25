@@ -30,6 +30,7 @@ namespace Bike_Rental
 		public Database()
 		{
 			CreateClientTable();
+			CreateBikeTable();
 		}
 		#endregion
 		#region Methods
@@ -42,7 +43,16 @@ namespace Bike_Rental
 		{
 			DbConnection = new SQLiteConnection("Data Source=BikeStations.sqlite;Version=3;");
 			DbConnection.Open();
-			string query = "CREATE TABLE IF NOT EXISTS client (name varchar,family_Name varchar,username varchar(10) PRIMARY KEY,password varchar(10))";
+			string query = "CREATE TABLE IF NOT EXISTS client (clientID INTEGER PRIMARY KEY,name varchar,family_Name varchar,username varchar(10) PRIMARY KEY,password varchar(10))";
+			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
+			command.ExecuteNonQuery();
+			this.DbConnection.Close();
+		}
+		private void CreateBikeTable()
+		{
+			DbConnection = new SQLiteConnection("Data Source=BikeStations.sqlite;Version=3;");
+			DbConnection.Open();
+			string query = "CREATE TABLE IF NOT EXISTS Bike (BikeID INTEGER PRIMARY KEY, Bike_Type varchar,Requires_Maintainence INTEGER)";
 			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
 			command.ExecuteNonQuery();
 			this.DbConnection.Close();
@@ -50,7 +60,7 @@ namespace Bike_Rental
 		public void InsertIntoClientTable(string name,string famName,string username,string password)
 		{
 			ConnectToDB();
-			string query = String.Format("INSERT INTO CLIENT (username, password) VALUES('{0}','{1}','{2}',{3}')",name,famName,username,password);
+			string query = String.Format("INSERT INTO CLIENT (name,family_Name,username, password) VALUES('{0}','{1}','{2}',{3}')",name,famName,username,password);
 			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
 			command.ExecuteNonQuery();
 			this.DbConnection.Close();
