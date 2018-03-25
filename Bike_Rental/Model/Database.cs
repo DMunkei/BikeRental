@@ -42,20 +42,43 @@ namespace Bike_Rental
 		{
 			DbConnection = new SQLiteConnection("Data Source=BikeStations.sqlite;Version=3;");
 			DbConnection.Open();
-			string query = "CREATE TABLE IF NOT EXISTS client (username varchar(10) PRIMARY KEY,password varchar(10))";
+			string query = "CREATE TABLE IF NOT EXISTS client (name varchar,family_Name varchar,username varchar(10) PRIMARY KEY,password varchar(10))";
 			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
 			command.ExecuteNonQuery();
 			this.DbConnection.Close();
 		}
-		public void InsertIntoClientTable(string username,string password)
+		public void InsertIntoClientTable(string name,string famName,string username,string password)
 		{
-			string query = String.Format("INSERT INTO CLIENT (username, password) VALUES('{0}','{1}')",username,password);
+			ConnectToDB();
+			string query = String.Format("INSERT INTO CLIENT (username, password) VALUES('{0}','{1}','{2}',{3}')",name,famName,username,password);
 			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
 			command.ExecuteNonQuery();
 			this.DbConnection.Close();
 		}
+
+		public bool CheckCredentials(string username, string password)
+		{
+			ConnectToDB();
+			string query = String.Format("SELECT * FROM client WHERE username={0} AND password={1};", username, password);
+			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
+			SQLiteDataReader reader = command.ExecuteReader();
+			if ((string)reader["username"] != username && (string)reader["password"] != password)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		//Checks if the username exists in the DB
 		public bool usernameExists(string username)
 		{
+			if (String.IsNullOrEmpty(username))
+			{
+				return false;
+			}
+			ConnectToDB();
 			string query = $"SELECT * FROM client;";
 			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
 			SQLiteDataReader reader = command.ExecuteReader();

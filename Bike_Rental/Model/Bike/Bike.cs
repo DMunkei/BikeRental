@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Bike_Rental
 {
-	class Bike
+	abstract class Bike
 	{
 		#region Members
 		private int _id;

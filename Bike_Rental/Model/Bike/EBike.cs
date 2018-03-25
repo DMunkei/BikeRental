@@ -73,6 +73,10 @@ namespace Bike_Rental
         {
             EBike.BikeCounter += 1;
         }
+		public void LockBike()
+		{
+			base.LockBike();
+		}
 		
 		#endregion
 	}

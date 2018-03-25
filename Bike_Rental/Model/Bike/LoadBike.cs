@@ -1,6 +1,6 @@
 ﻿///Author:Dominique Amir Köstler
 ///Class:IA116
-///Description: Tour bike class
+///Description: Load bike class
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +8,26 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Bike_Rental
-{
-    class TourBike:Bike
+{ 
+    class LoadBike:Bike
     {
         #region Members
+        private double _maximumLoad;
         private static int _bikeCounter;
-		#endregion
-		#region Properties
+        #endregion
+        #region Properties
+        public double MaximumLoad
+        {
+            get
+            {
+                return _maximumLoad;
+            }
+
+            set
+            {
+                _maximumLoad = value;
+            }
+        }
         public static int BikeCounter
         {
             get
@@ -29,22 +42,21 @@ namespace Bike_Rental
         }
         #endregion
         #region Constructor
-        public TourBike()
+        public LoadBike()
         {
             this.IncrementBikeCount();
-            this.Id = TourBike.BikeCounter;
-            this.Size = 30;
-            this.Kind = "Model S";
-            this.UsedTime = 40;
-            this.LockStatus = false;
-            this.Cost = 7.5;
+            this.MaximumLoad = 45;
         }
         #endregion
         #region Methods
         public void IncrementBikeCount()
         {
-            TourBike.BikeCounter++;
+            LoadBike.BikeCounter ++;
         }
+		public void LockBike()
+		{
+			base.LockBike();
+		}
         #endregion
     }
 }

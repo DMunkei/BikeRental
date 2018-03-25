@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bike_Rental.Model
+namespace Bike_Rental
 {
     class Client:Person
     {
@@ -59,7 +59,6 @@ namespace Bike_Rental.Model
 				_isRegistered = value;
 			}
 		}
-
 		public string UserName
 		{
 			get
@@ -72,7 +71,6 @@ namespace Bike_Rental.Model
 				_userName = value;
 			}
 		}
-
 		public string Password
 		{
 			get
@@ -85,18 +83,15 @@ namespace Bike_Rental.Model
 				_password = value;
 			}
 		}
-
-
-
 		#endregion
 		#region Constructors
-		public Client(string name,string famName)
+		public Client(string name,string famName,string user,string pw) : base(name, famName)
         {
+			this.UserName = user;
+			this.Password = pw;
             Client.IncrementClientID();
             this.ClientID = Client.ClientCounter;
-            //this.SurName = name;
-            //this.FamilyName = famName;
-        }
+		}
         #endregion
         #region Methods
         private static void IncrementClientID()
@@ -111,6 +106,15 @@ namespace Bike_Rental.Model
 		public void SuccesfulRegistration()
 		{ 
 			this.IsRegistered = true;
+		}
+		public void Register()
+		{
+
+		}
+		public override void WhatAmI()
+		{
+			IO io = new IO();
+			io.MyConsoleWriteLine("I am a client");
 		}
         #endregion
     }

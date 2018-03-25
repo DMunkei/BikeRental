@@ -14,7 +14,8 @@ namespace Bike_Rental
 	class Controller
 	{
 		#region Members
-		private BikeStation[] _bikeStation;
+		private List<BikeStation> _bikeStation;
+		private List<Person> _person;
 		private IO _myIO;
 		private Database _myDB;
 		#endregion
@@ -43,7 +44,7 @@ namespace Bike_Rental
 				_myDB = value;
 			}
 		}
-		internal BikeStation[] BikeStation
+		internal List<BikeStation> BikeStation
 		{
 			get
 			{
@@ -55,11 +56,24 @@ namespace Bike_Rental
 				_bikeStation = value;
 			}
 		}
+		internal List<Person> Person
+		{
+			get
+			{
+				return _person;
+			}
+
+			set
+			{
+				_person = value;
+			}
+		}
 		#endregion
 		#region Constructors
 		public Controller()
 		{
-			this.BikeStation = new BikeStation[99];
+			this.BikeStation = new List<BikeStation>(100);
+			this.Person = new List<Bike_Rental.Person>(200);
 			MyIO = new IO();
 			MyDB = new Database();
 		}
@@ -67,69 +81,103 @@ namespace Bike_Rental
 		#region Methods
 		public void Run()
 		{
-            bool exit = false;
-            MyIO.Splash();
+			bool exit = false;
+			MyIO.Splash();
 			Task.Delay(5000);
-			MyIO.ClearScreen();
-            while (exit != true)
-            {
+			MyIO.ClearScreen();			
+			while (exit != true)
+			{
 				MyIO.Authorization();
+				#region Invalid Choice
 				string userInput = MyIO.MyConsoleReadLine(); // checking if user wants to register or login
-				while(userInput != "1" && userInput != "2")
+				while (userInput != "1" && userInput != "2")
 				{
 					MyIO.ClearScreen();
 					MyIO.WrongInput();
+					MyIO.Authorization();
 					userInput = MyIO.MyConsoleReadLine();
 				}
+				#endregion
 				//Either Prompt the register method or login. Add a database to the application
-				if(userInput == "1")
+				#region Registration
+				if (userInput == "1")
 				{
 					MyIO.ClearScreen();
 					MyIO.InputUsername();
-					string username= MyIO.MyConsoleReadLine();
-					if (String.IsNullOrEmpty(username))
+					string username = MyIO.MyConsoleReadLine();
+					while (String.IsNullOrEmpty(username))
 					{
+						MyIO.ClearScreen();
 						MyIO.WrongInput();
+						MyIO.InputUsername();
+						username = MyIO.MyConsoleReadLine();
+					}
+					if (MyDB.usernameExists(username)) //If the username exists the function will return true.
+					{
+						MyIO.UsernameExists();
+						MyIO.TryAgain();
+						string tryAgain = MyIO.MyConsoleReadLineToLower();
+						switch (tryAgain)
+						{
+							case "j":
+								username = MyIO.MyConsoleReadLine();
+								break;
+							case "n":
+								exit = true;
+								break;
+							default:
+								MyIO.MyConsoleWriteLine("Bitte geben sie entweder J oder N ein.");
+								break;
+						}
 					}
 					else
 					{
-						while ((MyDB.usernameExists(username))) //If the username exists the function will return true.
-						{
-							MyIO.UsernameExists();
-							MyIO.TryAgain();
-							string tryAgain = MyIO.MyConsoleReadLine();
-							switch (tryAgain)
-							{
-								case "j":
-									username = MyIO.MyConsoleReadLine();
-									break;
-								case "n":
-									exit = true;
-									break;
-								default:
-									MyIO.MyConsoleWriteLine("Bitte geben sie entweder J oder N ein.");
-									break;
-							}
-
-						}
 						MyIO.InputPassword();
 						string password = MyIO.MyConsoleReadLine();
-						while(password.Length < 4)
+						while (password.Length < 4)
 						{
 							MyIO.PasswordDenied();
 							password = MyIO.MyConsoleReadLine();
 						}
-						MyDB.InsertIntoClientTable(username, password);				
+						//I know this isn't best practice, this is just to show that passwords shouldn't be stored in a database without masking the 
+						//original password!!
+						string hashedPassword;
+						hashedPassword = Encryptor.MD5Hash(password);
+						MyIO.MyConsoleWriteLine("wriet your name");
+						string surname = MyIO.MyConsoleReadLine();
+						string famName = MyIO.MyConsoleReadLine();
+						this.Person.Add(new Client(surname, famName, username, hashedPassword));
+						MyDB.InsertIntoClientTable(surname, famName, username, hashedPassword);
+					}
+
+				}
+				#endregion
+				#region Login
+				else
+				{
+					MyIO.Login();
+					MyIO.GetUserName();
+					string userLogin = MyIO.MyConsoleReadLineToLower();
+					MyIO.GetPassword();
+					string passLogin = MyIO.MyConsoleReadLine();
+					string hashedPassword = Encryptor.MD5Hash(passLogin);
+					if(MyDB.CheckCredentials(userLogin, hashedPassword))
+					{
+						//true then make them see the rest of the program
+					}
+					else
+					{
+						//Prompt a message saying wrong login and get passwords again
 					}
 				}
+				#endregion
 				MyIO.ClearScreen();
 				//MyIO.Greetings(userInput)
 
 				MyIO.Menu();
-                string userInput2 = MyIO.MyConsoleReadLine();
-
-            }
+				string menuSelection = MyIO.MyConsoleReadLine();
+			}
 		}
-		#endregion
 	}
+	#endregion
 }

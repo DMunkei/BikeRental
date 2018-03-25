@@ -15,7 +15,10 @@ namespace Bike_Rental.Model
 
 		#endregion
 		#region Constructors
+		public Mechanic(string name,string famName) : base(name,famName)
+		{
 
+		}
 		#endregion
 		#region Methods
 		public bool RepairRack(BikeRack rack)
@@ -30,17 +33,22 @@ namespace Bike_Rental.Model
 				return true;
 			}
 		}
-		public bool RepairRack(BikeRack rack)
+		public bool RepairStation(BikeStation station)
 		{
-			if (rack.RequiresMaintenance == false)
+			if (station.StationStatus == false)
 			{
 				return false;
 			}
 			else
 			{
-				rack.RequiresMaintenance = false;
+				station.StationStatus = false;
 				return true;
 			}
+		}
+		public override void WhatAmI()
+		{
+			IO io = new IO();
+			io.MyConsoleWriteLine("I am a Mechanic");
 		}
 		#endregion
 	}

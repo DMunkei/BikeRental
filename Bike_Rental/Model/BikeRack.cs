@@ -114,7 +114,6 @@ namespace Bike_Rental
 
 			if (this.RackInUse == false)
 			{
-				//IO.MyConsoleWriteLine("Stellplatz ist schon Leer.");
 				return false;
 			}
 			else
@@ -122,7 +121,6 @@ namespace Bike_Rental
 				this.RackInUse = false;
 				return true;
 			}
-			//IO.MyConsoleWriteLine("Fahrrad ausgegeben.");
 		}
 		public bool StoreBike(Bike BikeType)
 		{
@@ -131,7 +129,6 @@ namespace Bike_Rental
 
 			if (this.RackInUse == true)
 			{
-				//IO.MyConsoleWriteLine("Stellplatz besetzt.");
 				return false;
 			}
 			else
@@ -150,7 +147,6 @@ namespace Bike_Rental
 				}
 				return true;
 			}
-	
 		}
 		#endregion
 	}

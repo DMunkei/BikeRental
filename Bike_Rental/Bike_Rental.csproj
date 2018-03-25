@@ -44,6 +44,7 @@
       <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -68,18 +69,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controller\Controller.cs" />
-    <Compile Include="Model\Bike.cs" />
+    <Compile Include="Model\Bike\Bike.cs" />
     <Compile Include="Model\BikeStation.cs" />
     <Compile Include="Model\BikeRack.cs" />
-    <Compile Include="Model\Client.cs" />
-    <Compile Include="Model\EBike.cs" />
-    <Compile Include="Model\LoadBike.cs" />
-    <Compile Include="Model\Mechanic.cs" />
-    <Compile Include="Model\Person.cs" />
-    <Compile Include="Model\Register.cs" />
+    <Compile Include="Model\Encryption\Encryptor.cs" />
+    <Compile Include="Model\Person\Client.cs" />
+    <Compile Include="Model\Bike\EBike.cs" />
+    <Compile Include="Model\Bike\LoadBike.cs" />
+    <Compile Include="Model\Person\Mechanic.cs" />
+    <Compile Include="Model\Person\Person.cs" />
     <Compile Include="main.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\TourBike.cs" />
+    <Compile Include="Model\Bike\TourBike.cs" />
     <Compile Include="Model\Database.cs" />
     <Compile Include="View\IO.cs" />
   </ItemGroup>

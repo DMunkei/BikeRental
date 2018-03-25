@@ -105,6 +105,18 @@ namespace Bike_Rental
 		{
 			MyConsoleWriteLine("Geben Sie bitte J ein wenn Sie nochmal ein Username eingeben möchten. Geben Sie N um abzubrechen.");
 		}
+		public void Login()
+		{
+			MyConsoleWriteLine("Bitte geben Sie ihr Login ein.");
+		}
+		public void GetUserName()
+		{
+			MyConsoleWrite("Username:");
+		}
+		public void GetPassword()
+		{
+			MyConsoleWrite("Passwort:");
+		}
 		#endregion
 	}
 }

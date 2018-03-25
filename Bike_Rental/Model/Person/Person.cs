@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Bike_Rental.Model
+namespace Bike_Rental
 {
-	class Person
+	public abstract class Person
 	{
 		#region Members
 		private string _surName;
@@ -43,10 +43,21 @@ namespace Bike_Rental.Model
 
 		#endregion
 		#region Constructors
-
+		public Person(string name,string famName)
+		{
+			this.SurName = name;
+			this.FamilyName = famName;
+		}
 		#endregion
 		#region Methods
+		// Method to know what type of Person this object is
+		public abstract void WhatAmI();
 
+		public virtual void PrintName()
+		{
+			IO io = new Bike_Rental.IO();
+			io.MyConsoleWriteLine($"{this.SurName}{this.FamilyName}");
+		}
 		#endregion
 	}
 }

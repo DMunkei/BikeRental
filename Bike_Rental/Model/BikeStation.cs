@@ -15,7 +15,8 @@ namespace Bike_Rental
 		private int _id;
 		private static int _stationCounter;
 		private List<BikeRack> _bikeRacks;
-		private bool _stationStatus;
+		private bool _stationStatus; // if its on false then the station is working, doesn't need to be repaired
+		private bool _isActive;
 		private IO _myIO;
 		#endregion
 		#region Properties
@@ -32,7 +33,6 @@ namespace Bike_Rental
 				_id = value;
 			}
 		}
-
 		public static int StationCounter
 		{
 			get
@@ -45,7 +45,6 @@ namespace Bike_Rental
 				_stationCounter = value;
 			}
 		}
-
 		internal List<BikeRack> BikeRacks
 		{
 			get
@@ -58,7 +57,6 @@ namespace Bike_Rental
 				_bikeRacks = value;
 			}
 		}
-
 		public bool StationStatus
 		{
 			get
@@ -71,7 +69,6 @@ namespace Bike_Rental
 				_stationStatus = value;
 			}
 		}
-
 		internal IO MyIO
 		{
 			get
@@ -84,6 +81,19 @@ namespace Bike_Rental
 				MyIO = value;
 			}
 		}
+
+		public bool IsActive
+		{
+			get
+			{
+				return _isActive;
+			}
+
+			set
+			{
+				_isActive = value;
+			}
+		}
 		#endregion
 		#region Constructors
 		public BikeStation()
@@ -92,12 +102,11 @@ namespace Bike_Rental
 			this.Id = BikeStation.StationCounter;
 			this.BikeRacks = new List<BikeRack>(50);
             this.InitializeBikeRacks();
-            this.StationStatus = true;
+            this.StationStatus = false;
 			this.MyIO = new IO();
 		}
         #endregion
         #region Methods
-
         private void InitializeBikeRacks()
         {
             for (int i = 1; i<= 50; i++)
@@ -105,6 +114,7 @@ namespace Bike_Rental
                 this.BikeRacks.Add(new BikeRack());
             }
         }
+		[Obsolete] // Since we can find it using OccupyingBike
         public void StoreBike(int BikeType)
 		{
 			//Figure out how to store bike into bike rack.
@@ -121,16 +131,28 @@ namespace Bike_Rental
 
 		public void ActivateStation()
 		{
-			this.StationStatus = true;
+			this.IsActive = true;
 		}
 		public void DeactivateStation()
 		{
-			this.StationStatus = false;
+			this.IsActive = false;
 		}
 			
 		public void GetInventory()
 		{
 			//TODO: Don't know what to add in here.
+			foreach (BikeRack Bike in BikeRacks)
+			{
+				if(Bike.OccupyingBike != null)
+				{
+					MyIO.MyConsoleWriteLine($"{Bike.OccupyingBike}");				
+				}
+				else
+				{
+					//Maybe break instead to make it faster?
+					continue;
+				}
+			}
 		}
 		private static void IncrementStationID()
 		{
