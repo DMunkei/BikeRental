@@ -69,14 +69,30 @@ namespace Bike_Rental
 		{
 			MyConsoleWriteLine("1.Registrieren.");
 			MyConsoleWriteLine("2.Einloggen.");
+
+			MyConsoleWriteLine("3.Beenden");
 		}
+
+		#region Menu
 		public void Menu()
 		{
 			MyConsoleWriteLine("1.Fahrrad Ausleihen.");
 			MyConsoleWriteLine("2.Fahrrad Zurückgeben.");
 			MyConsoleWriteLine("3.Freie plätze anzeigen.");
-			MyConsoleWriteLine("4.Beenden.");
+			MyConsoleWriteLine("4.Rechnung.");
+			MyConsoleWriteLine("5.Beenden.");
 		}
+		//Option 1
+		public void RentBike()
+		{
+			MyConsoleWriteLine("Wählen Sie den Fahrrad-Typ aus.");
+			MyConsoleWriteLine("1.Elektro Fahrrad");
+			MyConsoleWriteLine("2.Lasten Fahrrad");
+			MyConsoleWriteLine("3.Touren Fahrrad");
+
+			MyConsoleWriteLine("4. Zurück");
+		}
+		#endregion
 		public void WrongInput()
 		{
 			MyConsoleWriteLine("Sie haben was falsch eingegeben.");
@@ -116,6 +132,15 @@ namespace Bike_Rental
 		public void GetPassword()
 		{
 			MyConsoleWrite("Passwort:");
+		}
+		public void Newline()
+		{
+			Console.WriteLine();
+		}
+
+		public void ReturnBike()
+		{
+			throw new NotImplementedException();
 		}
 		#endregion
 	}

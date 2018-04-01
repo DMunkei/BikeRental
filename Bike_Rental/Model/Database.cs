@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System	;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,11 +39,12 @@ namespace Bike_Rental
 			DbConnection = new SQLiteConnection("Data Source=BikeStations.sqlite;Version=3;");
 			DbConnection.Open();
 		}
+		#region Create Scripts
 		private void CreateClientTable()
 		{
 			DbConnection = new SQLiteConnection("Data Source=BikeStations.sqlite;Version=3;");
 			DbConnection.Open();
-			string query = "CREATE TABLE IF NOT EXISTS client (clientID INTEGER PRIMARY KEY,name varchar,family_Name varchar,username varchar(10) PRIMARY KEY,password varchar(10))";
+			string query = "CREATE TABLE IF NOT EXISTS client (clientID INTEGER NOT NULL,name varchar,family_Name varchar,username varchar(10) PRIMARY KEY,password varchar(10))";
 			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
 			command.ExecuteNonQuery();
 			this.DbConnection.Close();
@@ -57,29 +58,51 @@ namespace Bike_Rental
 			command.ExecuteNonQuery();
 			this.DbConnection.Close();
 		}
-		public void InsertIntoClientTable(string name,string famName,string username,string password)
+		#endregion
+		public void InsertIntoClientTable(int clientID,string name,string famName,string username,string password)
 		{
 			ConnectToDB();
-			string query = String.Format("INSERT INTO CLIENT (name,family_Name,username, password) VALUES('{0}','{1}','{2}',{3}')",name,famName,username,password);
+			string query = String.Format("INSERT INTO client (clientID,name,family_Name,username, password) VALUES({0},'{1}','{2}','{3}','{4}')", clientID, name,famName,username,password);
 			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
 			command.ExecuteNonQuery();
 			this.DbConnection.Close();
 		}
+		public int GetCurrentClientID(string username,string password)
+		{
+			string temp;
+			int clientID=-1;
+			ConnectToDB();
+			string query = String.Format("SELECT * FROM client Where username='{0}' AND password='{1}';",username,password);
+			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
+			SQLiteDataReader reader = command.ExecuteReader();
+
+			while (reader.Read())
+			{
+				temp = reader["clientID"].ToString();
+				clientID = Convert.ToInt16(temp);
+			}
+			return clientID;
+		}
 
 		public bool CheckCredentials(string username, string password)
 		{
+			bool foundUser = false;
+			string dummyString = ""; // Using this just to fulfill the inital SQLiteC
 			ConnectToDB();
-			string query = String.Format("SELECT * FROM client WHERE username={0} AND password={1};", username, password);
-			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
-			SQLiteDataReader reader = command.ExecuteReader();
-			if ((string)reader["username"] != username && (string)reader["password"] != password)
+			SQLiteCommand command = new SQLiteCommand(dummyString, DbConnection);
+			SQLiteDataReader reader;
+			string query = String.Format("SELECT * FROM client WHERE username='{0}' AND password='{1}';", username, password);
+			command = new SQLiteCommand(query, DbConnection);
+			reader = command.ExecuteReader();
+
+			while (reader.Read())
 			{
-				return false;
+				Console.WriteLine((string)reader["username"]);
+				Console.WriteLine((string)reader["password"]);
+				foundUser = true;
+				return foundUser;
 			}
-			else
-			{
-				return true;
-			}
+			return foundUser;
 		}
 		//Checks if the username exists in the DB
 		public bool usernameExists(string username)
@@ -103,14 +126,18 @@ namespace Bike_Rental
 			this.DbConnection.Close();
 			return false;
 		}
-		public void DropTable(string tableName)
+		public List<Person> PopulatePersonsList(List<Person> targetList)
 		{
-			this.ConnectToDB();
-			string query = String.Format("DROP TABLE IF EXISTS {0};", tableName);
-			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
-			command.ExecuteNonQuery();
-			this.DbConnection.Close();
 
+			ConnectToDB();
+			string query = $"SELECT * FROM client;";
+			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
+			SQLiteDataReader reader = command.ExecuteReader();
+			while (reader.Read())
+			{
+				targetList.Add(new Client((string)reader["name"], (string)reader["family_Name"], (string)reader["username"], (string)reader["password"]));
+			}
+			return targetList;
 		}
 		#endregion
 	}

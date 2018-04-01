@@ -19,6 +19,7 @@ namespace Bike_Rental
 		private string _password;
         private static int _clientCounter;
         private int _clientID;
+		private Bike _rentedBike;
 		#endregion
 		#region Properties
 		public static int ClientCounter
@@ -79,6 +80,19 @@ namespace Bike_Rental
 			set
 			{
 				_password = value;
+			}
+		}
+
+		internal Bike RentedBike
+		{
+			get
+			{
+				return _rentedBike;
+			}
+
+			set
+			{
+				_rentedBike = value;
 			}
 		}
 		#endregion

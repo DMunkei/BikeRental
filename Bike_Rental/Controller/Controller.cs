@@ -18,6 +18,9 @@ namespace Bike_Rental
 		private List<Person> _person;
 		private IO _myIO;
 		private Database _myDB;
+		private string _hashedPassword;
+		private bool _loginSuccess = false;
+		private int _currentClientID;
 		#endregion
 		#region Properties
 		internal IO MyIO
@@ -68,14 +71,53 @@ namespace Bike_Rental
 				_person = value;
 			}
 		}
+		public string HashedPassword
+		{
+			get
+			{
+				return _hashedPassword;
+			}
+
+			set
+			{
+				_hashedPassword = value;
+			}
+		}
+
+		public bool LoginSuccess
+		{
+			get
+			{
+				return _loginSuccess;
+			}
+
+			set
+			{
+				_loginSuccess = value;
+			}
+		}
+
+		public int CurrentClientID
+		{
+			get
+			{
+				return _currentClientID;
+			}
+
+			set
+			{
+				_currentClientID = value;
+			}
+		}
 		#endregion
 		#region Constructors
 		public Controller()
 		{
 			this.BikeStation = new List<BikeStation>(100);
-			this.Person = new List<Bike_Rental.Person>(200);
+			this.Person = new List<Person>(200);
 			MyIO = new IO();
 			MyDB = new Database();
+			MyDB.PopulatePersonsList(this.Person);
 		}
 		#endregion
 		#region Methods
@@ -84,9 +126,10 @@ namespace Bike_Rental
 			bool exit = false;
 			MyIO.Splash();
 			Task.Delay(5000);
-			MyIO.ClearScreen();			
+			MyIO.ClearScreen();
 			while (exit != true)
 			{
+				MyIO.ClearScreen();
 				MyIO.Authorization();
 				#region Invalid Choice
 				string userInput = MyIO.MyConsoleReadLine(); // checking if user wants to register or login
@@ -114,7 +157,9 @@ namespace Bike_Rental
 					}
 					if (MyDB.usernameExists(username)) //If the username exists the function will return true.
 					{
+						MyIO.ClearScreen();
 						MyIO.UsernameExists();
+						MyIO.Newline();
 						MyIO.TryAgain();
 						string tryAgain = MyIO.MyConsoleReadLineToLower();
 						switch (tryAgain)
@@ -129,6 +174,10 @@ namespace Bike_Rental
 								MyIO.MyConsoleWriteLine("Bitte geben sie entweder J oder N ein.");
 								break;
 						}
+						if (exit)// Exits the program
+						{
+							break;
+						}
 					}
 					else
 					{
@@ -141,13 +190,13 @@ namespace Bike_Rental
 						}
 						//I know this isn't best practice, this is just to show that passwords shouldn't be stored in a database without masking the 
 						//original password!!
-						string hashedPassword;
-						hashedPassword = Encryptor.MD5Hash(password);
-						MyIO.MyConsoleWriteLine("wriet your name");
+						this.HashedPassword = Encryptor.MD5Hash(password);
+						MyIO.MyConsoleWriteLine("write your name");
 						string surname = MyIO.MyConsoleReadLine();
 						string famName = MyIO.MyConsoleReadLine();
-						this.Person.Add(new Client(surname, famName, username, hashedPassword));
-						MyDB.InsertIntoClientTable(surname, famName, username, hashedPassword);
+						this.Person.Add(new Client(surname, famName, username, HashedPassword));
+						Client currentClient = this.Person[this.Person.Count - 1] as Client; // To get the current clientID;
+						MyDB.InsertIntoClientTable(currentClient.ClientID,surname, famName, username, HashedPassword);
 					}
 
 				}
@@ -155,29 +204,85 @@ namespace Bike_Rental
 				#region Login
 				else
 				{
+					MyIO.ClearScreen();
 					MyIO.Login();
 					MyIO.GetUserName();
 					string userLogin = MyIO.MyConsoleReadLineToLower();
 					MyIO.GetPassword();
 					string passLogin = MyIO.MyConsoleReadLine();
-					string hashedPassword = Encryptor.MD5Hash(passLogin);
-					if(MyDB.CheckCredentials(userLogin, hashedPassword))
+					this.HashedPassword = Encryptor.MD5Hash(passLogin);
+					if (MyDB.CheckCredentials(userLogin, HashedPassword)) 
 					{
 						//true then make them see the rest of the program
+						this.CurrentClientID = MyDB.GetCurrentClientID(userLogin, HashedPassword);
+						MyIO.ClearScreen();
+						MyIO.Greetings(userLogin);
+						LoginSuccess = true;
 					}
 					else
 					{
 						//Prompt a message saying wrong login and get passwords again
 					}
 				}
-				#endregion
-				MyIO.ClearScreen();
-				//MyIO.Greetings(userInput)
+				if (LoginSuccess == true)
+				{
+					bool menuLoop = true;
+					while (menuLoop)
+					{
+						MyIO.Newline();
+						MyIO.Menu();
+						string menuSelection = MyIO.MyConsoleReadLine();
+						#region Rent Bike
+							if(menuSelection == "1")
+							{
 
-				MyIO.Menu();
-				string menuSelection = MyIO.MyConsoleReadLine();
+								Client currentClient = this.Person[this.CurrentClientID] as Client;
+								MyIO.ClearScreen();
+								MyIO.RentBike();
+								string bikeType = MyIO.MyConsoleReadLine();
+								if(bikeType == "1")
+								{
+									currentClient.RentedBike = new EBike();
+								MyIO.ClearScreen();
+								}
+								else if (bikeType == "2")
+								{
+									currentClient.RentedBike = new LoadBike();
+								}
+								else if (bikeType == "3")
+								{
+									currentClient.RentedBike = new TourBike();
+								}
+								else if (bikeType == "4")
+								{
+									break;
+								}
+
+							}
+
+						#endregion
+						else if(menuSelection == "2")
+						{
+							MyIO.ReturnBike();
+						}
+						else if (menuSelection == "3")
+						{
+						
+						}
+						else if (menuSelection == "4")
+						{
+							//Create Bill
+						}
+						else if (menuSelection == "5")
+						{
+							exit = true;
+							break;
+						}
+					}
+				}
+				#endregion
 			}
-		}
+		}		
 	}
-	#endregion
 }
+	#endregion
