@@ -1,4 +1,4 @@
-﻿using System	;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -137,6 +137,17 @@ namespace Bike_Rental
 			{
 				targetList.Add(new Client((string)reader["name"], (string)reader["family_Name"], (string)reader["username"], (string)reader["password"]));
 			}
+			return targetList;
+		}
+
+		private List<BikeStation> PopulateBikeStations(List<BikeStation> targetList)
+		{
+			ConnectToDB();
+			//string query = String.Format("INSERT INTO Bike")
+
+
+
+
 			return targetList;
 		}
 		#endregion
