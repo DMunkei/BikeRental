@@ -234,7 +234,7 @@ namespace Bike_Rental
 				while (menuLoop)
 				{
 					MyIO.Newline();
-					MyIO.Menu();
+					MyIO.ClientMenu();
 					string menuSelection = MyIO.MyConsoleReadLine();
 					#region Rent Bike
 						if(menuSelection == "1")
@@ -296,6 +296,7 @@ namespace Bike_Rental
 			#endregion
 			return false;
 		}
+        
 	}
 }
 	#endregion

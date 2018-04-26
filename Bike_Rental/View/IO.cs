@@ -74,7 +74,7 @@ namespace Bike_Rental
 		}
 
 		#region Menu
-		public void Menu()
+		public void ClientMenu()
 		{
 			MyConsoleWriteLine("1.Fahrrad Ausleihen.");
 			MyConsoleWriteLine("2.Fahrrad Zurückgeben.");
@@ -82,6 +82,20 @@ namespace Bike_Rental
 			MyConsoleWriteLine("4.Rechnung.");
 			MyConsoleWriteLine("5.Beenden.");
 		}
+        public void MechanicMenu()
+        {
+            MyConsoleWriteLine("1. Fahrrad entnehmen und reparieren");
+            MyConsoleWriteLine("2. Stellplatz deaktivieren und reparieren");
+            MyConsoleWriteLine("3. Station deaktivieren und reparieren");
+        }
+        public void AdminMenu()
+        {
+            MyConsoleWriteLine("1. Bestand aller Fahrräder anzeigen");
+            MyConsoleWriteLine("2. Fahrrad kaufen und einer Station zuteilen");
+            MyConsoleWriteLine("3. Fahrrad verkaufen (aus dem System entfernen)");
+            MyConsoleWriteLine("4. Alle Kundendaten anzeigen");
+            MyConsoleWriteLine("5. Rechnung für einen Kunden erstellen");
+        }
 		//Option 1
 		public void RentBike()
 		{
@@ -92,6 +106,9 @@ namespace Bike_Rental
 
 			MyConsoleWriteLine("4. Zurück");
 		}
+
+
+
 		#endregion
 		public void WrongInput()
 		{
