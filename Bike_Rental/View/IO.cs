@@ -65,12 +65,26 @@ namespace Bike_Rental
 		{
 			MyConsoleWriteLine("Fahrrad wurde nicht entsperrt.");
 		}
+
 		public void Authorization()
 		{
 			MyConsoleWriteLine("1.Registrieren.");
 			MyConsoleWriteLine("2.Einloggen.");
 
 			MyConsoleWriteLine("3.Beenden");
+		}
+
+
+		public void TestUsers()
+		{
+
+			MyConsoleWriteLine("Test Benutzer.");
+			Newline();
+			MyConsoleWriteLine("1. admin, test123");
+			MyConsoleWriteLine("2. techniker, test123");
+			MyConsoleWriteLine("3. kunde, test123");
+			Newline();
+
 		}
 
 		#region Menu

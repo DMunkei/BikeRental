@@ -1,4 +1,4 @@
-﻿	///Author:Dominique Amir 
+﻿///Author:Dominique Amir 
 ///Class:Client
 ///Description: Client consisting of a Sur-/Family Name
 

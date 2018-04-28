@@ -9,6 +9,8 @@ namespace Bike_Rental
 	{
 		#region Members
 		private SQLiteConnection _dbConnection;
+		private string _query;
+		private SQLiteDataReader _reader;
 		#endregion
 		#region Properties
 		public SQLiteConnection DbConnection
@@ -27,8 +29,8 @@ namespace Bike_Rental
 		#region Constructors
 		public Database()
 		{
-			CreateClientTable();
-			CreateBikeTable();
+			CreateTables();
+			//CreateBikeTable();
 
         }
 		#endregion
@@ -39,67 +41,64 @@ namespace Bike_Rental
 			DbConnection.Open();
 		}
 		#region Create Scripts
-		private void CreateClientTable()
+		private void CreateTables()
 		{
             if (!File.Exists("BikeStations.sqlite"))
             {
-			    DbConnection = new SQLiteConnection("Data Source=BikeStations.sqlite;Version=3;");
-			    DbConnection.Open();
-			    string query = "CREATE TABLE IF NOT EXISTS client (clientID INTEGER NOT NULL,name varchar,family_Name varchar,username varchar(10) PRIMARY KEY,password varchar(10))";
-			    SQLiteCommand command = new SQLiteCommand(query, DbConnection);
-                command.ExecuteNonQuery();
+				ConnectToDB();
+				_query = "CREATE TABLE IF NOT EXISTS client (clientID INTEGER NOT NULL,name varchar,family_Name varchar,username varchar(10) PRIMARY KEY,password varchar(10))";
+				DoCommand(_query);
 
-                createTestingUsers();
 
-			    this.DbConnection.Close();
+				createTestingUsers(); // Creates 3 types of customers. Just for testing purposes.
+
+
+
+				CreateBikeTable();
+
+				this.DbConnection.Close();
                 DbConnection.Dispose();
             }
 		}
 		private void CreateBikeTable()
 		{
-            int i = 0
-            if (!File.Exists("BikeStations.sqlite"))
+			int i = 1;
+			ConnectToDB();
+			_query = "CREATE TABLE IF NOT EXISTS Bike (BikeID INTEGER PRIMARY KEY,Bike_Type varchar,Standort INTEGER,Requires_Maintainence INTEGER)";
+			DoCommand(_query);
+			//Creates all bikes for the database
+			ConnectToDB();
+			while (i < 5000)
             {
-                DbConnection = new SQLiteConnection("Data Source=BikeStations.sqlite;Version=3;");
-			    DbConnection.Open();
-			    string query = "CREATE TABLE IF NOT EXISTS Bike (BikeID INTEGER PRIMARY KEY,Standort INTEGER, Bike_Type varchar,Requires_Maintainence INTEGER)";
-			    SQLiteCommand command = new SQLiteCommand(query, DbConnection);
-			    command.ExecuteNonQuery();
-
-
-                while (i < 5000)
+                if(i< 1900)
                 {
-                    if(i< 1900)
-                    {
-                        Random rnd = new Random();
-                        int bikeStationNumber = rnd.Next(1, 30);
-                        InsertIntoBikeTable(i, "E-Bike", bikeStationNumber, 0);
-                    }
-                    else if (i < 2800)
-                    {
-                        Random rnd = new Random();
-                        int bikeStationNumber = rnd.Next(1, 30);
-                        InsertIntoBikeTable(i, "Tourren Fahrrad", bikeStationNumber, 0);
-                    }
-                    else
-                    {
-                        Random rnd = new Random();
-                        int bikeStationNumber = rnd.Next(1, 30);
-                        InsertIntoBikeTable(i, "Lasten Fahrrad", bikeStationNumber, 0);
-                    }
+                    Random rnd = new Random();
+                    int bikeStationNumber = rnd.Next(1, 30);
+                    InsertIntoBikeTable(i, "E-Bike", bikeStationNumber, 0);
                 }
-
-			    this.DbConnection.Close();
-                DbConnection.Dispose();
+                else if (i < 2800)
+                {
+                    Random rnd = new Random();
+                    int bikeStationNumber = rnd.Next(1, 30);
+                    InsertIntoBikeTable(i, "Tourren Fahrrad", bikeStationNumber, 0);
+                }
+                else
+                {
+                    Random rnd = new Random();
+                    int bikeStationNumber = rnd.Next(1, 30);
+                    InsertIntoBikeTable(i, "Lasten Fahrrad", bikeStationNumber, 0);
+                }
+				i++;
             }
+			    //this.DbConnection.Close();
+       //         DbConnection.Dispose();
         }
 		#endregion
 		public void InsertIntoClientTable(int clientID,string name,string famName,string username,string password)
 		{
 			ConnectToDB();
-			string query = String.Format("INSERT INTO client (clientID,name,family_Name,username, password) VALUES({0},'{1}','{2}','{3}','{4}')", clientID, name,famName,username,password);
-			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
-			command.ExecuteNonQuery();
+			_query = String.Format("INSERT INTO client (clientID,name,family_Name,username, password) VALUES({0},'{1}','{2}','{3}','{4}')", clientID, name,famName,username,password);
+			DoCommand(_query);
 			this.DbConnection.Close();
 		}
 		public int GetCurrentClientID(string username,string password)
@@ -107,64 +106,48 @@ namespace Bike_Rental
 			string temp;
 			int clientID=-1;
 			ConnectToDB();
-			string query = String.Format("SELECT * FROM client Where username='{0}' AND password='{1}';",username,password);
-			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
-			SQLiteDataReader reader = command.ExecuteReader();
-
-			while (reader.Read())
+			_query = String.Format("SELECT * FROM client Where username='{0}' AND password='{1}';",username,password);
+			_reader = ReadQuery(_query);
+			while (_reader.Read())
 			{
-				temp = reader["clientID"].ToString();
+				temp = _reader["clientID"].ToString();
 				clientID = Convert.ToInt16(temp);
 			}
 			return clientID;
 		}
-
-
-
         public void InsertIntoBikeTable(int bikeID,string bikeType,int standortNumber, int requiresMaintainance)
         {
-            ConnectToDB();
-            string query = String.Format("INSERT INTO bike(bikeID,bike_Type,standort,Requires_Maintainence) VALUES('{0}','{1}','{2}','{3}','{4}'", bikeID, bikeType, standortNumber, requiresMaintainance);
-            SQLiteCommand command = new SQLiteCommand(query, DbConnection);
-            command.ExecuteNonQuery();
-            this.DbConnection.Close();
-            DbConnection.Dispose();
+            //ConnectToDB();
+            _query = String.Format("INSERT INTO bike (bikeID,bike_Type,standort,Requires_Maintainence) VALUES('{0}','{1}','{2}','{3}')", bikeID, bikeType, standortNumber, requiresMaintainance);
+			DoCommand(_query);
+            //this.DbConnection.Close();
+            //DbConnection.Dispose();
         }
-
 
         private void createTestingUsers()
         {
             string passLogin = "test123";
             string password1 = Encryptor.MD5Hash(passLogin);
 
-            InsertIntoClientTable(1, "bla", "blob", "admin", password1);
-            InsertIntoClientTable(2, "bla", "blob", "mechanic", password1);
-            InsertIntoClientTable(3, "bla", "blob", "client", password1);
+            InsertIntoClientTable(1, "Bob", "Ross", "admin", password1);
+            InsertIntoClientTable(2, "Jacques", "Pepin", "techniker", password1);
+            InsertIntoClientTable(3, "Mohammed", "Salah", "kunde", password1);
 
         }
-
-
-
-
-
-
-
-
         public bool CheckCredentials(string username, string password)
 		{
 			bool foundUser = false;
 			string dummyString = ""; // Using this just to fulfill the inital SQLiteC
 			ConnectToDB();
 			SQLiteCommand command = new SQLiteCommand(dummyString, DbConnection);
-			SQLiteDataReader reader;
-			string query = String.Format("SELECT * FROM client WHERE username='{0}' AND password='{1}';", username, password);
-			command = new SQLiteCommand(query, DbConnection);
-			reader = command.ExecuteReader();
 
-			while (reader.Read())
+			_query = String.Format("SELECT * FROM client WHERE username='{0}' AND password='{1}';", username, password);
+			_reader = ReadQuery(_query);
+
+			while (_reader.Read())
 			{
-				Console.WriteLine((string)reader["username"]);
-				Console.WriteLine((string)reader["password"]);
+				Console.WriteLine((string)_reader["username"]);
+				Console.WriteLine((string)_reader["password"]);
 				foundUser = true;
 				return foundUser;
 			}
@@ -178,10 +161,10 @@ namespace Bike_Rental
 				return false;
 			}
 			ConnectToDB();
-			string query = $"SELECT * FROM client;";
-			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
+			_query = $"SELECT * FROM client;";
+			SQLiteCommand command = new SQLiteCommand(_query, DbConnection);
 			SQLiteDataReader reader = command.ExecuteReader();
-			foreach (var item in reader)
+			foreach (var item in _reader)
 			{
 				if(username == (string)reader["username"])
 				{
@@ -196,12 +179,11 @@ namespace Bike_Rental
 		{
 
 			ConnectToDB();
-			string query = $"SELECT * FROM client;";
-			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
-			SQLiteDataReader reader = command.ExecuteReader();
-			while (reader.Read())
+			_query = $"SELECT * FROM client;";
+			_reader = ReadQuery(_query);
+			while (_reader.Read())
 			{
-				targetList.Add(new Client((string)reader["name"], (string)reader["family_Name"], (string)reader["username"], (string)reader["password"]));
+				targetList.Add(new Client((string)_reader["name"], (string)_reader["family_Name"], (string)_reader["username"], (string)_reader["password"]));
 			}
 			return targetList;
 		}
@@ -209,12 +191,24 @@ namespace Bike_Rental
 		private List<BikeStation> PopulateBikeStations(List<BikeStation> targetList)
 		{
 			ConnectToDB();
-			//string query = String.Format("INSERT INTO Bike")
+			_query = $"SELECT * FROM bike;";
 
 
 
 
 			return targetList;
+		}
+
+		private void DoCommand(string query)
+		{
+			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
+			command.ExecuteNonQuery();
+		}
+		private SQLiteDataReader ReadQuery(string query)
+		{
+			SQLiteCommand command = new SQLiteCommand(query, DbConnection);
+			SQLiteDataReader reader = command.ExecuteReader();
+			return reader;
 		}
 		#endregion
 	}

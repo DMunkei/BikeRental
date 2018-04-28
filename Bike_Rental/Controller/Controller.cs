@@ -134,6 +134,7 @@ namespace Bike_Rental
 		public bool MainMenu()
 		{
 			MyIO.ClearScreen();
+			MyIO.TestUsers();
 			MyIO.Authorization();
 			#region Invalid Choice
 			string userInput = MyIO.MyConsoleReadLine(); // checking if user wants to register or login
