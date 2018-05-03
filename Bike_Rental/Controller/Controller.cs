@@ -118,7 +118,9 @@ namespace Bike_Rental
 			MyIO = new IO();
 			MyDB = new Database();
 			MyDB.PopulatePersonsList(this.Person);
-		}
+            MyDB.PopulateBikeStations(this.BikeStation);
+
+        }
 		#endregion
 		#region Methods
 		public void Run()
@@ -200,7 +202,7 @@ namespace Bike_Rental
 					string famName = MyIO.MyConsoleReadLine();
 					this.Person.Add(new Client(surname, famName, username, HashedPassword));
 					Client currentClient = this.Person[this.Person.Count - 1] as Client; // To get the current clientID;
-					MyDB.InsertIntoClientTable(currentClient.ClientID,surname, famName, username, HashedPassword);
+					MyDB.InsertIntoPersonTable(currentClient.ClientID,surname, famName, username, HashedPassword,1);
 				}
 			}
 			#endregion

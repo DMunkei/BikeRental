@@ -30,7 +30,7 @@ namespace Bike_Rental
 		public Database()
 		{
 			CreateTables();
-			//CreateBikeTable();
+			CreateBikeTable();
 
         }
 		#endregion
@@ -46,15 +46,10 @@ namespace Bike_Rental
             if (!File.Exists("BikeStations.sqlite"))
             {
 				ConnectToDB();
-				_query = "CREATE TABLE IF NOT EXISTS client (clientID INTEGER NOT NULL,name varchar,family_Name varchar,username varchar(10) PRIMARY KEY,password varchar(10))";
+				_query = "CREATE TABLE IF NOT EXISTS person (personID INTEGER NOT NULL,name varchar,family_Name varchar,username varchar(20) PRIMARY KEY,password varchar(12),userType INTEGER)";
 				DoCommand(_query);
-
-
 				createTestingUsers(); // Creates 3 types of customers. Just for testing purposes.
-
-
-
-				CreateBikeTable();
+				//CreateBikeTable();
 
 				this.DbConnection.Close();
                 DbConnection.Dispose();
@@ -74,46 +69,44 @@ namespace Bike_Rental
                 {
                     Random rnd = new Random();
                     int bikeStationNumber = rnd.Next(1, 30);
-                    InsertIntoBikeTable(i, "E-Bike", bikeStationNumber, 0);
+                    InsertIntoBikeTable(i, typeof(EBike).ToString(), bikeStationNumber, 0);
                 }
                 else if (i < 2800)
                 {
                     Random rnd = new Random();
                     int bikeStationNumber = rnd.Next(1, 30);
-                    InsertIntoBikeTable(i, "Tourren Fahrrad", bikeStationNumber, 0);
+                    InsertIntoBikeTable(i, typeof(TourBike).ToString(), bikeStationNumber, 0);
                 }
                 else
                 {
                     Random rnd = new Random();
                     int bikeStationNumber = rnd.Next(1, 30);
-                    InsertIntoBikeTable(i, "Lasten Fahrrad", bikeStationNumber, 0);
+                    InsertIntoBikeTable(i, typeof(TourBike).ToString(), bikeStationNumber, 0);
                 }
 				i++;
             }
-			    //this.DbConnection.Close();
-       //         DbConnection.Dispose();
         }
 		#endregion
-		public void InsertIntoClientTable(int clientID,string name,string famName,string username,string password)
+		public void InsertIntoPersonTable(int personID,string name,string famName,string username,string password,int userType)
 		{
 			ConnectToDB();
-			_query = String.Format("INSERT INTO client (clientID,name,family_Name,username, password) VALUES({0},'{1}','{2}','{3}','{4}')", clientID, name,famName,username,password);
+			_query = String.Format("INSERT INTO client (personID,name,family_Name,username, password) VALUES({0},'{1}','{2}','{3}','{4}','{5}')", personID, name,famName,username,password,userType);
 			DoCommand(_query);
 			this.DbConnection.Close();
 		}
 		public int GetCurrentClientID(string username,string password)
 		{
 			string temp;
-			int clientID=-1;
+			int personID = -1;
 			ConnectToDB();
-			_query = String.Format("SELECT * FROM client Where username='{0}' AND password='{1}';",username,password);
+			_query = String.Format("SELECT * FROM person Where username='{0}' AND password='{1}';",username,password);
 			_reader = ReadQuery(_query);
 			while (_reader.Read())
 			{
-				temp = _reader["clientID"].ToString();
-				clientID = Convert.ToInt16(temp);
+				temp = _reader["personID"].ToString();
+				personID = Convert.ToInt16(temp);
 			}
-			return clientID;
+			return personID;
 		}
         public void InsertIntoBikeTable(int bikeID,string bikeType,int standortNumber, int requiresMaintainance)
         {
@@ -129,10 +122,9 @@ namespace Bike_Rental
             string passLogin = "test123";
             string password1 = Encryptor.MD5Hash(passLogin);
 
-            InsertIntoClientTable(1, "Bob", "Ross", "admin", password1);
-            InsertIntoClientTable(2, "Jacques", "Pepin", "techniker", password1);
-            InsertIntoClientTable(3, "Mohammed", "Salah", "kunde", password1);
-
+            InsertIntoPersonTable(1, "Bob", "Ross", "admin", password1,2);
+            InsertIntoPersonTable(2, "Jacques", "Pepin", "techniker", password1,0);
+            InsertIntoPersonTable(3, "Mohammed", "Salah", "kunde", password1,1);
         }
         public bool CheckCredentials(string username, string password)
 		{
@@ -141,7 +133,7 @@ namespace Bike_Rental
 			ConnectToDB();
 			SQLiteCommand command = new SQLiteCommand(dummyString, DbConnection);
 
-			_query = String.Format("SELECT * FROM client WHERE username='{0}' AND password='{1}';", username, password);
+			_query = String.Format("SELECT * FROM person WHERE username='{0}' AND password='{1}';", username, password);
 			_reader = ReadQuery(_query);
 
 			while (_reader.Read())
@@ -177,7 +169,6 @@ namespace Bike_Rental
 		}
 		public List<Person> PopulatePersonsList(List<Person> targetList)
 		{
-
 			ConnectToDB();
 			_query = $"SELECT * FROM client;";
 			_reader = ReadQuery(_query);
@@ -188,14 +179,29 @@ namespace Bike_Rental
 			return targetList;
 		}
 
-		private List<BikeStation> PopulateBikeStations(List<BikeStation> targetList)
+		public List<BikeStation> PopulateBikeStations(List<BikeStation> targetList)
 		{
 			ConnectToDB();
-			_query = $"SELECT * FROM bike;";
-
-
-
-
+			_query = $"SELECT * FROM Bike;";
+            _reader = ReadQuery(_query);
+            while (_reader.Read())
+            {
+                foreach (BikeStation station in targetList)
+                {
+                    foreach (BikeRack rack in station.BikeRacks)
+                    {
+                        if(rack.RequiresMaintenance == true)
+                        {
+                            continue;
+                        }
+                        if (!rack.RackInUse)
+                        {
+                            rack.OccupyingBike = (Bike)Activator.CreateInstance(Type.GetType(_reader["Bike_Type"].ToString()));
+                            rack.RackInUse = true;
+                        }
+                    }
+                }
+            }
 			return targetList;
 		}
 
