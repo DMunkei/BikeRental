@@ -30,7 +30,7 @@ namespace Bike_Rental
 		public Database()
 		{
 			CreateTables();
-			CreateBikeTable();
+			//CreateBikeTable();
 
         }
 		#endregion
@@ -46,10 +46,10 @@ namespace Bike_Rental
             if (!File.Exists("BikeStations.sqlite"))
             {
 				ConnectToDB();
-				_query = "CREATE TABLE IF NOT EXISTS person (personID INTEGER NOT NULL,name varchar,family_Name varchar,username varchar(20) PRIMARY KEY,password varchar(12),userType INTEGER)";
+				_query = "CREATE TABLE IF NOT EXISTS Person (personID INTEGER NOT NULL,name varchar,family_Name varchar,username varchar(20) PRIMARY KEY,password varchar(12),userType INTEGER)";
 				DoCommand(_query);
 				createTestingUsers(); // Creates 3 types of customers. Just for testing purposes.
-				//CreateBikeTable();
+				CreateBikeTable();
 
 				this.DbConnection.Close();
                 DbConnection.Dispose();
@@ -90,16 +90,16 @@ namespace Bike_Rental
 		public void InsertIntoPersonTable(int personID,string name,string famName,string username,string password,int userType)
 		{
 			ConnectToDB();
-			_query = String.Format("INSERT INTO client (personID,name,family_Name,username, password) VALUES({0},'{1}','{2}','{3}','{4}','{5}')", personID, name,famName,username,password,userType);
+			_query = String.Format("INSERT INTO Person (personID,name,family_Name,username, password,userType) VALUES('{0}','{1}','{2}','{3}','{4}','{5}')", personID, name,famName,username,password,userType);
 			DoCommand(_query);
 			this.DbConnection.Close();
 		}
-		public int GetCurrentClientID(string username,string password)
+		public int GetCurrentPersonID(string username,string password)
 		{
 			string temp;
 			int personID = -1;
 			ConnectToDB();
-			_query = String.Format("SELECT * FROM person Where username='{0}' AND password='{1}';",username,password);
+			_query = String.Format("SELECT * FROM Person Where username='{0}' AND password='{1}';",username,password);
 			_reader = ReadQuery(_query);
 			while (_reader.Read())
 			{
@@ -133,7 +133,7 @@ namespace Bike_Rental
 			ConnectToDB();
 			SQLiteCommand command = new SQLiteCommand(dummyString, DbConnection);
 
-			_query = String.Format("SELECT * FROM person WHERE username='{0}' AND password='{1}';", username, password);
+			_query = String.Format("SELECT * FROM Person WHERE username='{0}' AND password='{1}';", username, password);
 			_reader = ReadQuery(_query);
 
 			while (_reader.Read())
@@ -153,7 +153,7 @@ namespace Bike_Rental
 				return false;
 			}
 			ConnectToDB();
-			_query = $"SELECT * FROM client;";
+			_query = $"SELECT * FROM Person;";
 			SQLiteCommand command = new SQLiteCommand(_query, DbConnection);
 			SQLiteDataReader reader = command.ExecuteReader();
 			foreach (var item in _reader)
@@ -170,7 +170,7 @@ namespace Bike_Rental
 		public List<Person> PopulatePersonsList(List<Person> targetList)
 		{
 			ConnectToDB();
-			_query = $"SELECT * FROM client;";
+			_query = $"SELECT * FROM Person;";
 			_reader = ReadQuery(_query);
 			while (_reader.Read())
 			{

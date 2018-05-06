@@ -73,7 +73,6 @@
     <Compile Include="Model\BikeStation.cs" />
     <Compile Include="Model\BikeRack.cs" />
     <Compile Include="Model\Encryption\Encryptor.cs" />
-    <Compile Include="Model\Person\Administrator.cs" />
     <Compile Include="Model\Person\Client.cs" />
     <Compile Include="Model\Bike\EBike.cs" />
     <Compile Include="Model\Bike\LoadBike.cs" />

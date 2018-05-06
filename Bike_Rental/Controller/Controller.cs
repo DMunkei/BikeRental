@@ -219,7 +219,7 @@ namespace Bike_Rental
 				if (MyDB.CheckCredentials(userLogin, HashedPassword)) 
 				{
 					//true then make them see the rest of the program
-					this.CurrentClientID = MyDB.GetCurrentClientID(userLogin, HashedPassword);
+					this.CurrentClientID = MyDB.GetCurrentPersonID(userLogin, HashedPassword);
 					MyIO.ClearScreen();
 					MyIO.Greetings(userLogin);
 					LoginSuccess = true;
