@@ -1,13 +1,17 @@
-﻿///Author:Dominique Amir 
-///Class:Client
-///Description: Client consisting of a Sur-/Family Name
+﻿/*****************************************************************************
+h e i n r i c h -h e r t z -b e r u f s k o l l e g  d e r  s t a d t  b o n n
+Autor:          Dominique Köstler
+Klasse:         IA116
+Datei:          Client.cs
+Einsatz:        Program ablauf
+Beschreibung:   Bases Klasse für Fahrräder
+Funktionen:     -
+*****************************************************************************/
 
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Bike_Rental
 {
@@ -103,6 +107,7 @@ namespace Bike_Rental
 			this.Password = pw;
             Client.IncrementClientID();
             this.ClientID = Client.ClientCounter;
+			this.RentedBike = null;
 		}
         #endregion
         #region Methods
@@ -110,19 +115,13 @@ namespace Bike_Rental
         {
             Client.ClientCounter++;
         }
-		public void ClientData()
+		public string ReturnBike()
 		{
-			//TODO think of a way to write the client's information without having to put a view reference inside this class.
-		}
-		//Use this when a Client passes registration process
-		public void SuccesfulRegistration()
-		{ 
-			this.IsRegistered = true;
-		}
-		public void Register()
-		{
-
-		}
+			string test = "";
+			test = typeof(Bike).ToString();
+			this._rentedBike = null;
+			return test;
+		}		
 		public override void WhatAmI()
 		{
 			IO io = new IO();

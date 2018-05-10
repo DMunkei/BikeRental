@@ -1,12 +1,6 @@
 ﻿///Author:Dominique Amir Köstler
 ///Class:IA116
 ///Description: Can load and unload different types of bikes
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace Bike_Rental
 {
 	class BikeRack

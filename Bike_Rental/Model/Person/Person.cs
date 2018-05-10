@@ -1,11 +1,14 @@
-﻿///Author:Dominique Amir 
-///Class:Client
-///Description: Person
+﻿/*****************************************************************************
+h e i n r i c h -h e r t z -b e r u f s k o l l e g  d e r  s t a d t  b o n n
+Autor:          Dominique Köstler
+Klasse:         IA116
+Datei:          Person.cs
+Einsatz:        Bases Person Klasse
+Beschreibung:   Bases Klasse für Personen
+Funktionen:     -
+*****************************************************************************/
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bike_Rental
 {

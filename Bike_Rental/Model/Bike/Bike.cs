@@ -1,12 +1,14 @@
-﻿///Author:Dominique Amir Köstler
-///Class:IA116
-///Description: Bike
-
+﻿/*****************************************************************************
+h e i n r i c h -h e r t z -b e r u f s k o l l e g  d e r  s t a d t  b o n n
+Autor:          Dominique Köstler
+Klasse:         IA116
+Datei:          Bike.cs
+Einsatz:        Bike
+Beschreibung:   Bases Klasse für Fahrräder
+Funktionen:     -
+*****************************************************************************/
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bike_Rental
 {

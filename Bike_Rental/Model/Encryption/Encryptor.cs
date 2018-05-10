@@ -1,4 +1,14 @@
-﻿using System.Text;
+﻿/*****************************************************************************
+h e i n r i c h -h e r t z -b e r u f s k o l l e g  d e r  s t a d t  b o n n
+Autor:          Dominique Köstler
+Klasse:         IA116
+Datei:          Encryptor.cs
+Einsatz:        Bei der Registrierung und Log in
+Beschreibung:   Verschlüsselung nach MD5
+Funktionen:     -
+*****************************************************************************/
+
+using System.Text;
 using System.Security.Cryptography;
 
 namespace Bike_Rental

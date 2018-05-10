@@ -1,12 +1,7 @@
 ﻿///Author:Dominique Amir Köstler
 ///Class:IA116
 ///Description: Static Input Output class
-
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bike_Rental
 {
@@ -90,18 +85,20 @@ namespace Bike_Rental
 		#region Menu
 		public void ClientMenu()
 		{
-			MyConsoleWriteLine("1.Fahrrad Ausleihen.");
-			MyConsoleWriteLine("2.Fahrrad Zurückgeben.");
-			MyConsoleWriteLine("3.Freie plätze anzeigen.");
-			MyConsoleWriteLine("4.Rechnung.");
-			MyConsoleWriteLine("5.Beenden.");
+			MyConsoleWriteLine("1.Fahrrad Ausleihen");
+			MyConsoleWriteLine("2.Fahrrad Zurückgeben");
+			MyConsoleWriteLine("3.Freie plätze anzeigen");
+			MyConsoleWriteLine("4.Rechnung");
+			MyConsoleWriteLine("5.Beenden");
 		}
         public void MechanicMenu()
         {
             MyConsoleWriteLine("1. Fahrrad entnehmen und reparieren");
             MyConsoleWriteLine("2. Stellplatz deaktivieren und reparieren");
             MyConsoleWriteLine("3. Station deaktivieren und reparieren");
-        }
+			Newline();
+			MyConsoleWriteLine("4.Beenden.");
+		}
         public void AdminMenu()
         {
             MyConsoleWriteLine("1. Bestand aller Fahrräder anzeigen");
@@ -168,10 +165,13 @@ namespace Bike_Rental
 		{
 			Console.WriteLine();
 		}
-
 		public void ReturnBike()
 		{
-			throw new NotImplementedException();
+			MyConsoleWriteLine("Sie haben das Fahrrad erfolgreich zurückgegeben.");
+		}
+		public void AvailableRacks(int freeRacks)
+		{
+			MyConsoleWriteLine($"{freeRacks} Plätze sind frei.");
 		}
 		#endregion
 	}

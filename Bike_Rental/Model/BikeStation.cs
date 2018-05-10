@@ -3,9 +3,7 @@
 ///Description: Stores multiple bike racks
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Bike_Rental
 {
@@ -16,8 +14,8 @@ namespace Bike_Rental
 		private static int _stationCounter;
 		private List<BikeRack> _bikeRacks;
 		private bool _stationStatus; // if its on false then the station is working, doesn't need to be repaired
-		private bool _isActive;
-		private IO _myIO;
+		private bool _isActive; 
+		//private IO _myIO;
 		#endregion
 		#region Properties
 
@@ -103,30 +101,37 @@ namespace Bike_Rental
 			this.BikeRacks = new List<BikeRack>(50);
             this.InitializeBikeRacks();
             this.StationStatus = false;
-			this.MyIO = new IO();
+			//this.MyIO = new IO();
 		}
         #endregion
         #region Methods
-        private void InitializeBikeRacks()
-        {
-            for (int i = 1; i<= 50; i++)
-            {
-                this.BikeRacks.Add(new BikeRack());
-            }
-        }
-		[Obsolete] // Since we can find it using OccupyingBike
-        public void StoreBike(int BikeType)
+		public static void InitializeBikeStation(BikeStation[] targets)
 		{
-			//Figure out how to store bike into bike rack.
-			for (int i = 0; i < BikeRacks.Count; i++)
+			for (int i = 0; i < targets.Length; i++)
 			{
-				if(BikeRacks[i].BikeID == 0)
+				targets[i] = new BikeStation();
+			}
+		}
+        public void InitializeBikeRacks()
+        {
+			for (int i = 1; i<= 50; i++)
+			{
+				this.BikeRacks.Add(new BikeRack());
+			}
+        }
+
+
+		public int ShowFreeRacks()
+		{
+			int freeRacksCounter = 0;
+			foreach (BikeRack rack in BikeRacks)
+			{
+				if(rack.RackInUse == false)
 				{
-					BikeRacks[i].BikeID = BikeType;
-					BikeRacks[i].RackInUse = true;
-					break;
+					freeRacksCounter++;
 				}
 			}
+			return freeRacksCounter;
 		}
 
 		public void ActivateStation()
@@ -154,6 +159,10 @@ namespace Bike_Rental
 				}
 			}
 		}
+
+
+
+
 		private static void IncrementStationID()
 		{
 			BikeStation.StationCounter++;

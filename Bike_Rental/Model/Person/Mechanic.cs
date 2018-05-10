@@ -1,8 +1,17 @@
-﻿using System;
+﻿/*****************************************************************************
+h e i n r i c h -h e r t z -b e r u f s k o l l e g  d e r  s t a d t  b o n n
+Autor:          Dominique Köstler
+Klasse:         IA116
+Datei:          Mechanic.cs
+Einsatz:        Kind Klasse von Person
+Beschreibung:   Repariert Fahrräder und Stationen
+Funktionen:     -
+*****************************************************************************/
+
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
+
 
 namespace Bike_Rental.Model
 {
