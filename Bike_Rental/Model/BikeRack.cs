@@ -1,6 +1,12 @@
-﻿///Author:Dominique Amir Köstler
-///Class:IA116
-///Description: Can load and unload different types of bikes
+﻿/*****************************************************************************
+h e i n r i c h -h e r t z -b e r u f s k o l l e g  d e r  s t a d t  b o n n
+Autor:          Dominique Köstler
+Klasse:         IA116
+Datei:          BikeRacks.cs
+Einsatz:        -
+Beschreibung:   Stellplätze
+Funktionen:     -
+*****************************************************************************/
 namespace Bike_Rental
 {
 	class BikeRack

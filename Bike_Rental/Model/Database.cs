@@ -1,6 +1,12 @@
-﻿///Author:Dominique Amir Köstler
-///Class:IA116
-///Description:Database 
+﻿/*****************************************************************************
+h e i n r i c h -h e r t z -b e r u f s k o l l e g  d e r  s t a d t  b o n n
+Autor:          Dominique Köstler
+Klasse:         IA116
+Datei:          Database.cs
+Einsatz:        Datenbank verbindung
+Beschreibung:   Datenbank für die App
+Funktionen:     -
+*****************************************************************************/
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -33,7 +39,6 @@ namespace Bike_Rental
 		public Database()
 		{
 			CreateTables();
-			//CreateBikeTable();
 
         }
 		#endregion
@@ -136,13 +141,13 @@ namespace Bike_Rental
         private void createTestingUsers()
         {
             string passLogin = "test123";
-            string password1 = Encryptor.MD5Hash(passLogin);
+            string password = Encryptor.MD5Hash(passLogin);
 
-            InsertIntoPersonTable(1, "Bob", "Ross", "admin", password1,2);
-            InsertIntoPersonTable(2, "Jacques", "Pepin", "techniker", password1,0);
-            InsertIntoPersonTable(3, "Mohammed", "Salah", "kunde", password1,1);
-			InsertIntoPersonTable(4, "Cristiano", "Ronaldo", "kunde", password1, 1);
-			InsertIntoPersonTable(5, "Leonel", "Messi", "kunde", password1, 1);
+            InsertIntoPersonTable(1, "Bob", "Ross", "admin", password,2);
+            InsertIntoPersonTable(2, "Jacques", "Pepin", "techniker", password,0);
+            InsertIntoPersonTable(3, "Mohammed", "Salah", "kunde1", password,1);
+			InsertIntoPersonTable(4, "Cristiano", "Ronaldo", "kunde2", password, 1);
+			InsertIntoPersonTable(5, "Leonel", "Messi", "kunde3", password, 1);
 		}
         public bool CheckCredentials(string username, string password)
 		{

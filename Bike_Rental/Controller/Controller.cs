@@ -119,7 +119,11 @@ namespace Bike_Rental
 			Bike_Rental.BikeStation.InitializeBikeStation(this.BikeStation);
 			this.Person = new List<Person>(200); 
 			MyIO = new IO();
+			MyIO.Splash();
+			MyIO.Newline();
+			MyIO.InitializingDB();
 			MyDB = new Database();
+			MyIO.DatabaseReady();
 			MyDB.PopulatePersonsList(this.Person);
             MyDB.PopulateBikeStations(this.BikeStation);
         }
@@ -128,7 +132,7 @@ namespace Bike_Rental
 		public void Run()
 		{
 			bool quit = false;
-			MyIO.Splash();
+			MyIO.ClearScreen();
 			while (quit == false)			
 			{
 				quit = MainMenu();

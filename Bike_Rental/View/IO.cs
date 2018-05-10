@@ -173,6 +173,14 @@ namespace Bike_Rental
 		{
 			MyConsoleWriteLine($"{freeRacks} Plätze sind frei.");
 		}
+		public void InitializingDB()
+		{
+			MyConsoleWriteLine("Datenbank wird initializiert...");
+		}
+		public void DatabaseReady()
+		{
+			MyConsoleWriteLine("Datenbank erfolgreich initializiert.");
+		}
 		#endregion
 	}
 }
